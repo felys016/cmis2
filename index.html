@@ -146,6 +146,11 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .skbtn.rem:hover:not(:disabled){background:rgba(244,197,66,0.06);}
 .skbtn.end-turn{border-color:#333;color:var(--dim);}
 .skbtn.end-turn:hover{border-color:var(--text);color:var(--text);}
+/* Grade badges */
+.grade-badge{position:absolute;top:20px;right:6px;font-size:7px;padding:2px 5px;border-radius:2px;font-weight:700;}
+.gb-special{background:rgba(255,107,157,0.2);border:1px solid var(--pink);color:var(--pink);}
+.gb-1{background:rgba(244,197,66,0.2);border:1px solid var(--acc3);color:var(--acc3);}
+.gb-2{background:rgba(82,183,136,0.2);border:1px solid var(--sup);color:var(--sup);}
 
 /* Log */
 #log-wrap{border:1px solid var(--border);background:var(--panel);}
@@ -215,7 +220,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
   <div class="logo">CMAC</div>
   <div class="sub-logo">Cursed Fight Club</div>
   <div class="ver">Official Server Ver 2.4 — JJK DLC</div>
-  <div class="tagline">Somewhere in Chiang Mai, cursed energy flows through every punch, every word, every bad memory. Six nations. One school. Infinite grudges.</div>
+  <div class="tagline">Somewhere in Chiang Mai, cursed energy flows through every punch, every laugh, every 2am instant noodle on the Back Mountain. Six nations. One school. One unbreakable crew.</div>
   <div class="menu-btns">
     <button class="menu-btn primary" onclick="showScreen('draft-screen');initDraft('pvp')">⚔ VERSUS MODE</button>
     <button class="menu-btn story-btn" onclick="showScreen('story-screen')">📖 STORY MODE</button>
@@ -240,8 +245,9 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 
       <div class="lore-section">
         <h3>The Back Mountain (後山)</h3>
-        <p class="highlight">Behind the main campus lies an untamed jungle ridge the locals call the Back Mountain — 後山. No faculty patrol it. No rules govern it. It is where the real bonds are forged and the real fights happen, usually over instant noodles and basketball arguments that escalate into full cursed-energy exchanges.</p>
-        <p>The original five who claimed this territory — Zane, Harrison, Lucas, Vincent, Feliz — did not plan to become a brotherhood. They were simply the five students expelled from the dormitories in the same week of first semester, for five completely different offences, and the Back Mountain was the only place left to sleep. By the time the faculty reinstated their dorm privileges, none of them wanted to go back.</p>
+        <p class="highlight">Behind the main campus lies an untamed jungle ridge the locals call the Back Mountain — 後山. No faculty patrol it. No rules govern it. It is where the real bonds are forged and the real fights happen, usually at 2am over instant noodles and basketball arguments that spiral into full cursed-energy exchanges that leave scorch marks on the trees.</p>
+        <p>The original five who claimed this territory — Zane, Harrison, Lucas, Vincent, Feliz — all ended up expelled from the dormitories in the same week of first semester, for five completely unrelated offences, and the Back Mountain was the only place left to sleep. Somewhere between the shared instant noodles and the cursed-energy sparring at 2am, they became the people each other relied on most. By the time the faculty reinstated their dorm privileges, none of them wanted to go back.</p>
+        <p>The mountain is loud, chaotic, and full of people who would genuinely die for each other while also stealing each other's food. This is the same thing, on the Back Mountain. Over time the extended CMAC family gravitates toward the ridge — for training, for the noodles, for the particular comfort of people who will be honest with you about everything except how much they care about you.</p>
       </div>
 
       <div class="lore-section">
@@ -260,7 +266,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <p>Harrison grew up in a Bangkok slum built on the ruins of a demolished spirit ward. The cursed energy seeping up through the ground was just part of the neighbourhood — everyone in the area was a little stronger, a little harder to kill, a little more likely to wake up with someone else's strength. Harrison was ten when he first consciously stole someone's pain tolerance during a beating, reversed it back into them, and walked away from a fight he had no business surviving.</p>
         <p>He spent the next five years as a street thief who happened to be spiritually anomalous, until he broke into a black-market cursed tool auction at fifteen and accidentally absorbed radiation from a display piece called the Infinite Cursed Core. His technique mutated overnight from selective pain-stealing to full attribute larceny — he could take anything. Speed, strength, stamina, cursed energy output, even specific skills if the moment was right.</p>
         <p class="highlight">Zane found him during a hunt, three steps ahead of four Grade 2 bounty sorcerers, eating stolen street food with perfect calm. Zane offered him a bed, instant noodles, and the Back Mountain. Harrison said: "I'll need to verify this isn't a trap." He verified it for six months before admitting he lived there.</p>
-        <p>He has one rule that he follows without exception: he does not steal from the Back Mountain brotherhood. He has never explained why. The others have never asked. Charlotte's hair ties are an ongoing grey area that everyone pretends not to notice.</p>
+        <p>He has one rule that he follows without exception: he does not steal from the Back Mountain brotherhood. He has never explained why. The others have never asked. Charlotte's hair ties are the one grey area everyone pretends not to notice. Zane knows. Charlotte knows. Harrison knows they know. Nobody says anything. This is love.</p>
         <p><em>"What's yours is yours. What's theirs is negotiable. What's mine is permanent."</em></p>
       </div>
 
@@ -277,10 +283,9 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
       <div class="lore-section">
         <h3>★ VINCENT — Unstoppable Force</h3>
         <p class="highlight">Technique: Iron Arm Theory (剛腕の理) · Role: ATK · Grade: 1</p>
-        <p>Vincent held 37 consecutive wins in Bangkok's underground circuit before he met Woojoo. He was nineteen, undefeated, and genuinely believed he was the physically strongest person in any room he entered. Woojoo was visiting from Seoul for a tournament, wandered into the underground circuit by accident looking for a convenience store, and proceeded to beat Vincent using exclusively the psychological leverage of being 2.3 metres tall. Vincent did not take this well.</p>
-        <p>His cursed energy manifested that same night — specifically from the humiliation and the subsequent determination — as raw physical amplification so intense he bent the arena's iron cage with his bare hands while trying to leave through a door that was slightly stuck. He destroyed the door, three metres of fencing, and a vending machine before he calmed down.</p>
-        <p class="highlight">Harrison stole his belt on the way out. This is how he met the Back Mountain, specifically through the three weeks of escalating retaliation that followed before Zane negotiated a truce over noodles. He now has "後山兄弟" tattooed on his right forearm and insists it is an anatomical diagram. No one challenges this.</p>
-        <p>He and Woojoo have an ongoing competition that neither will admit is friendly. The scoreboard lives in both their heads and neither score matches.</p>
+        <p>Vincent held 37 consecutive wins in Bangkok's underground circuit before he met Woojoo. He was nineteen, undefeated, and genuinely believed he was the physically strongest person in any room he entered. Woojoo was visiting from Seoul for a tournament, wandered into the underground circuit by accident looking for a convenience store, and proceeded to beat Vincent using exclusively the psychological leverage of being 2.3 metres tall. Vincent's cursed energy manifested that same night — raw physical amplification so intense he bent the arena's iron cage with his bare hands while trying to leave through a door that was slightly stuck.</p>
+        <p>Harrison stole his belt on the way out. This is how he met the Back Mountain — three weeks of competitive mutual escalation followed, which Zane ended by cooking noodles and making them both sit down. They sat. They ate. They laughed about it. Vincent now has "後山兄弟" tattooed on his right forearm and insists it is an anatomical diagram. No one challenges this.</p>
+        <p class="highlight">He and Woojoo have never had a rematch that either of them would describe as settled. Their scoreboard lives in both their heads and neither total matches. They are the kind of rivals who would never admit — to anyone, under any circumstances — that the other is the only competition that truly matters to them. This is obvious to everyone watching.</p>
         <p><em>"Strength is the only honest language. Everything else is negotiable."</em></p>
       </div>
 
@@ -290,7 +295,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <p>Feliz was the first child in Los Angeles's St. Agatha's group home to go viral. He was five years old and had learned that performing distress on camera produced donations, which produced attention, which produced something that felt almost like being seen. By eight he had 200,000 followers and a parasocial relationship with an audience that did not know his real name.</p>
         <p>His cursed energy awakened at eleven when a house supervisor who had been skimming the home's funding came for him directly. The donation comments — hundreds of "666" blessings from an active livestream — physically materialised as a barrier and knocked the man across the room. The camera kept rolling. The clip got twelve million views. The supervisor was fired. Feliz did not feel safe for months afterwards.</p>
         <p class="highlight">His technique channels the need to be witnessed into protective energy for others. The irony is not lost on him: his deepest wound is his greatest power. He buffs allies by essentially bleeding attention onto them. He leaves every fight quietly, always glancing back once to see if anyone noticed.</p>
-        <p>He joined the Back Mountain not through drama but through proximity — he was sleeping rough near the ridge because the dorms were loud. Zane left instant noodles outside his tent for three weeks before saying a word to him. By then, Feliz had already decided to stay.</p>
+        <p>He joined the Back Mountain not through drama but through proximity — he was sleeping rough near the ridge because the dorms were loud. Zane left instant noodles outside his tent for three weeks without saying a word to him. On day twenty-two, Feliz came to the fire and sat down. They watched the jungle in silence for an hour. It is the most welcome Feliz has ever felt.</p>
         <p><em>"If nobody watches, does the pain exist? ...Yes. I've checked. Repeatedly."</em></p>
       </div>
 
@@ -300,7 +305,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <p>Jeff grew up in a state psychiatric facility in Ohio. He was placed there at four — the paperwork says "severe emotional dysregulation," which is how institutions describe children who feel too much too loudly. The facility used sugar as a behaviour management tool. Jeff learned that Skittles meant calm, that candy was currency, that sweetness was the official language of getting through the day.</p>
         <p>When he was eleven, his ward-mate Caleb — a girl who collected the wrappers from every candy she ate — disappeared after a forced treatment session. No explanation was given to the other children. One morning her bed was made with hospital corners and her wrapper collection was gone. The only trace she had been there was a puddle of melted rainbow candy on the floor by the window. Jeff's cursed energy awakened that night. Every piece of sugar in the building transformed into a cursed tool. He healed three injured night-staff and put five others to sleep with confectionery before anyone realised what was happening.</p>
         <p class="highlight">His jacket — the one he uses as a weapon — was the only birthday gift he ever received, from Caleb, three weeks before she vanished. He has repaired it eleven times. He fights with it because fighting with it means she is still there somehow, still relevant, still mattering to the universe.</p>
-        <p>He gives candy to everyone. Not as a power move — he just genuinely believes that small sweetness is load-bearing. The world is held up by ten thousand tiny kindnesses and someone has to keep making deposits.</p>
+        <p>He gives candy to everyone. Not as a power move — he just genuinely believes that small sweetness is load-bearing. The world is held up by ten thousand tiny kindnesses and someone has to keep making deposits. The Back Mountain brotherhood figured this out early. Jeff is the reason there are always Skittles at the 2am noodle sessions, and the reason nobody on the mountain ever trains alone if they're having a bad day.</p>
         <p><em>"Pain is like rainbow candy. You have to bite through it to get to the sweet part. I believe this. I have to believe this."</em></p>
       </div>
 
@@ -310,7 +315,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <p>Jake was discovered by a modelling scout at fourteen while throwing rocks at a shoe store window in Milan. The scout said he had exceptional bone structure. Jake said he was trying to steal the Jordans in the display. The scout hired him anyway. For two years Jake existed in the liminal space between high fashion and petty crime, doing runway shows on Tuesday and climbing fire escapes on Thursday.</p>
         <p>His cursed energy manifested backstage at a Gucci show when three other models cornered him for "making the Asian quota look bad." He turned their aggression back through concentrated cursed output and they spent the next six hours in a state the show's photographer described as "the most avant-garde look of the collection." The photos ran in Vogue. Jake was blacklisted from every agency in Milan by Thursday.</p>
         <p class="highlight">He arrived at CMAC by accident — he had followed Zane into what he thought was an art installation and got caught in a summoning circle. Harrison hit him in the face with a shoe before anyone could explain. He has accepted this as his origin story and has placed it, unlabelled, in his Instagram private archive.</p>
-        <p>He brings a camera to training sessions and has seventeen thousand photos of the Back Mountain at different times of day. He insists this is pure aesthetics. He has never printed any of them. The folder is labelled "reference" and contains more portraits than landscapes.</p>
+        <p>He brings a camera to training sessions and has seventeen thousand photos of the Back Mountain at different times of day. He insists this is pure aesthetics. He has never printed any of them. The folder is labelled "reference" and contains more portraits than landscapes. Harrison once asked why Jake never shows the photos to anyone. Jake said they were unfinished. Harrison said they looked finished to him. Jake has not answered this yet.</p>
         <p><em>"Killing can be elegant. So can survival. The difference is the light source."</em></p>
       </div>
 
@@ -320,7 +325,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <p>Cici was MIT's youngest doctoral candidate in physics, admitted at nineteen on the basis of a paper arguing that cursed energy followed the same conservation laws as thermodynamic systems and could therefore be modelled mathematically. The Jujutsu Council read the paper and requested she be redirected. MIT's physics department objected. The Jujutsu Council sent two Grade 2 sorcerers to explain the situation in person. Cici sent them back with a note and a proof showing that their combined cursed energy output had actually increased the entropy of the hallway by a measurable amount.</p>
         <p>Her technique awakened during the lab explosion caused by testing her own theoretical models at scale. Her left eye retained the formula scarring — faint cursed energy equations visible in her iris under certain light. She considers this an acceptable outcome. The lab was insured.</p>
         <p class="highlight">She came to CMAC because Director Zhang Wei sent her a formal letter of invitation that included a statistical argument for why CMAC was the optimal environment for her research. She read it, found three errors in his math, corrected them, and came anyway because the corrected version was still compelling.</p>
-        <p>She and Michelle have an ongoing collaboration on probability manipulation that neither will admit is genuinely exciting to them. Cici calls it "applied chaos theory research." Michelle calls it "finally, someone who can make the slot machine reliable." Both of these descriptions are accurate.</p>
+        <p>She and Michelle have an ongoing collaboration on probability manipulation that neither will admit is genuinely exciting to them. Cici calls it "applied chaos theory research." Michelle calls it "finally, someone who can make the slot machine reliable." Both of these descriptions are accurate. The Back Mountain crew has adopted her as their unofficial technical consultant — she attends the 2am sessions, usually with equations to review, and stays until dawn without noticing.</p>
         <p><em>"Violence is just applied physics. My fist is the most elegant variable in any equation I enter."</em></p>
       </div>
 
@@ -330,7 +335,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <p>Trex was running his own stall at Chatuchak Market by age six — his grandmother's setup, technically, but she had handed him the cash box at five and he had tripled the daily take within a month by the application of psychology, strategic pricing, and a complete disregard for the listed price of anything. By eight he was trading Buddha amulets, tourist trinkets, and cursed items he did not yet know were cursed, moving volume through a network of child runners who he paid in mango sticky rice.</p>
         <p>His cursed energy awakened at ten when a rival market family tried to buy out his grandmother's stall for far below value. The wave of commercial outrage that emanated from him materialised as physical objects — keychains, specifically, three hundred of them, raining down in a thirty-metre radius and each one impacting with the force of a hurled stone. The rival family left. His grandmother called it a blessing from the market spirits. Trex called it inventory.</p>
         <p class="highlight">He arrived at CMAC because a Jujutsu Council recruiter offered him a contract. Trex read it, identified eleven unfavourable clauses, renegotiated all eleven, added four clauses of his own, and signed the revised version. The recruiter later said it was the most professionally conducted enrolment conversation he had ever experienced with a twelve-year-old.</p>
-        <p>He operates a side economy within CMAC trading cursed tools, rare ingredients, and information. It is technically against academy rules. Director Zhang Wei has invoiced him three times for regulatory fees. Trex has paid all three invoices on time and increased his prices accordingly.</p>
+        <p>He operates a side economy within CMAC trading cursed tools, rare ingredients, and information. It is technically against academy rules. Director Zhang Wei has invoiced him three times for regulatory fees. Trex has paid all three invoices on time and increased his prices accordingly. His unofficial territory overlaps with the Back Mountain; he supplies the noodles for the 2am sessions at cost and calls it "strategic community investment." Harrison calls it friendship. Trex does not correct him.</p>
         <p><em>"Every transaction is a relationship. Every relationship is an asset. Every asset has a price. I just know all the prices."</em></p>
       </div>
 
@@ -340,7 +345,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <p>Michelle is the illegitimate daughter of a Monaco casino dynasty and a mathematical prodigy the family quietly employed and then quietly paid off. She grew up splitting time between extraordinary wealth and total institutional invisibility — present at every party, listed on no legal documents, given everything except acknowledgement. She learned to move through rooms as if she owned them because the alternative was admitting she was not supposed to be there.</p>
         <p>Her cursed energy manifested at a private auction when she was sixteen and bid on a Special Grade cursed spirit called the God of Poverty as a joke — she had no intention of owning it, she just wanted to see how high the price would go. She won the auction. The God of Poverty, humiliated at being purchased by someone it considered beneath it, attacked her immediately. The backlash of its attack, rebounded through her awakening cursed energy, became the foundation of her technique: the ability to turn probability itself into a weapon.</p>
         <p class="highlight">She keeps the God of Poverty as a pet. It hates her. She finds this extremely funny. It lives in a gilded cage in her dorm room and she has given it a name she refuses to share with anyone.</p>
-        <p>Her slot machine domain is not random. She knows exactly which outcome is coming — she just chooses not to tell the enemy which one it will be.</p>
+        <p>Her slot machine domain is not random. She knows exactly which outcome is coming — she just chooses not to tell the enemy which one it will be. The Back Mountain tolerates her because Cici vouched for her and also because she once paid for a full week of noodle supplies "as a data investment in team dynamics." The data, apparently, is that people who eat together are harder to kill. She considers this an acceptable return.</p>
         <p><em>"Everything is a gamble. I simply have better information than you."</em></p>
       </div>
 
@@ -350,7 +355,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <p>Charlotte graduated top of her year at the Royal College of Medicine in London, published two papers on cursed energy pathology, and was three months into her residency when her technique manifested during a surgery. The patient had a particularly aggressive curse. Charlotte neutralised it by instinctively copying the cursed removal technique of a Grade 1 sorcerer who had operated in the same theatre six years earlier — a technique she had never been taught, from a sorcerer she had never met, whose energy signature had apparently lingered in the room. The surgery was a success. Her consultant immediately contacted the Jujutsu Council.</p>
         <p>The comparison to Orimoto Rika is made constantly and always incorrectly. Charlotte's resonance does not bind her to any person or place. It is not love made manifest as a curse. It is something closer to deep attunement — she feels the shape of techniques and reflects them back, amplified, changed. When the technique she is copying belongs to someone she genuinely cares about, the amplification is significantly higher. She has measured this. She does not volunteer the data.</p>
         <p class="highlight">Her white coat has a CMAC student ID clipped to it. The back of the ID badge, which no one can see when it is clipped, reads "Property of Zane" in small neat handwriting. She wrote this herself in her first week at CMAC as a private joke about the Rika comparisons. She has never replaced the badge. This is not a joke anymore and she is aware of this and is choosing not to address it.</p>
-        <p>Her technique never heals herself. She has looked into why. The answer is either a fundamental limitation of resonance-based techniques or something more personal that she is not currently examining.</p>
+        <p>Her technique never heals herself. She has looked into why. The answer is either a fundamental limitation of resonance-based techniques or something more personal that she is not currently examining. The Back Mountain crew has noticed she always ends training sessions slightly more depleted than she starts. Nobody makes a big deal of it. Zane leaves her tea.</p>
         <p><em>"I am not Rika. Rika was a curse born from love that consumed its host. I am a doctor. I know how to set appropriate professional boundaries."</em> — she has said this in the mirror four times this week.</p>
       </div>
 
@@ -360,7 +365,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <p>LJ was expelled from Seoul Arts High School for using her graduation performance to deliver a cursed monologue that left the entire faculty and audience emotionally incapacitated for forty minutes. The review board called it "a severe abuse of performance technique." LJ called it a critique of institutional hypocrisy, pointed out that three of the incapacitated faculty members had been actively suppressing student exhibitions for years, and submitted her expulsion appeal in the form of a fifteen-page cursed-ink document that made the review board cry. The expulsion stood. The three faculty members resigned.</p>
         <p>Her technique channels genuine grievance into linguistic weapons — the cursed words hit harder when she actually means them, which means her most devastating attacks are always personal. Her phone contains 826 gigabytes of cursed blackmail material she has collected since age fourteen, sorted by subject and indexed. She has never used any of it. Having it is the point.</p>
         <p class="highlight">She teams with Cici and Charlotte in a configuration that accidentally produces harmonic resonance between their three techniques. The first time it happened, it brought down a training hall. Director Zhang Wei issued a formal warning. All three ignored it. They call the formation LCC. The academy staff calls it "the reason Training Hall B has no east wall anymore."</p>
-        <p>Despite everything, she has two people she will never weaponise her technique against: Cici and Charlotte. She has not articulated why. She does not need to. Some things are just true.</p>
+        <p>Despite everything, she has two people she will never weaponise her technique against: Cici and Charlotte. She has not articulated why. She does not need to. Some things are just true. She shows up to Back Mountain sessions uninvited and has never once been told to leave. She also eats more noodles than anyone and complains about the brand choice every time. This is her love language and the mountain crew has accepted it.</p>
         <p><em>"Words are the only weapon that hits before you can defend. I have the best aim in this school. Probably in this country."</em></p>
       </div>
 
@@ -369,7 +374,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <p class="highlight">Technique: Gourmet Cursed Art (美食呪法) · Role: Support/ATK · Grade: Special</p>
         <p>Madame's family has operated a cursed-energy bakery in Lyon for four generations. The technique is hereditary, passed down alongside the bread recipes: the family channels the emotional energy of imperfect food — the resentment of a collapsed soufflé, the grief of an oversalted ratatouille, the rage of a baguette left in the oven too long — into combat technique. It sounds absurd until you have been hit by a condensed cursed baguette travelling at 200 kilometres per hour with the combined grudge of forty years of bad bread infused into it.</p>
         <p>She was sent to Tokyo High on an exchange and declined to stay. Tokyo's sorcerers, she felt, had interesting technique but poor table manners and no concept of appropriate meal timing. She came to CMAC because Director Zhang Wei's formal invitation included a proposed menu for her welcome dinner that demonstrated genuine research into French culinary tradition. She arrived. The dinner was acceptable. She stayed.</p>
-        <p class="highlight">Her feelings about Harrison are complicated. She finds his eating habits genuinely offensive — he treats food as fuel, which she considers a philosophical failing. She also finds his technique philosophically interesting (theft as a cursed art has structural parallels with her own food-resentment theory that she has written twelve pages about). She gives Zane macarons. She considers him the only person at CMAC with genuine taste. This is high praise. She does not give it lightly.</p>
+        <p class="highlight">Her feelings about Harrison are complicated. She finds his eating habits genuinely offensive — he treats food as fuel, which she considers a philosophical failing. She also finds his technique philosophically interesting (theft as a cursed art has structural parallels with her own food-resentment theory that she has written twelve pages about). She gives Zane macarons. She considers him the only person at CMAC with genuine taste. This is high praise. She does not give it lightly. She has appeared at three Back Mountain 2am sessions uninvited, each time claiming she was inspecting the local culinary conditions. Each time she has brought food for everyone. Nobody has commented on this. She keeps coming back.</p>
         <p>She once sealed a Special Grade cursed spirit inside a baguette. The baguette is currently on display in her family's Lyon bakery. Customers think it is a decorative piece. It is not.</p>
         <p><em>"Technique is refinement applied to force. Anyone can hit. A sorcerer with standards hits beautifully."</em></p>
       </div>
@@ -380,7 +385,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <p>Woojoo was expelled from the Korean national basketball programme at seventeen with the official reason listed as "physical parameters inconsistent with standard human athletic classification." He was 2.3 metres tall. His growth had not stopped. The team doctor's private notes, which Woojoo has read, describe him as "producing a measurable field of psychological pressure that causes other players to hesitate before he moves." This is not a basketball technique. It is an early manifestation of cursed energy.</p>
         <p>His technique condenses his physical abnormality into genuine cursed force — the psychological weight of looking up at something that should not exist becomes literal combat pressure. His Sky Dunk does not just deal damage; it leaves the target with a verified residual trauma response to height. He has tested this. He feels mildly bad about it. Not enough to stop.</p>
         <p class="highlight">The leg attack trauma is real and documented. In middle school, a group of female classmates spent three months mocking his legs as "impossibly thin for his height, like a flamingo." He has since developed his legs to the point where the comparison is no longer accurate and also developed a complete PTSD response to leg attacks that he manages to find simultaneously humiliating and mechanically interesting from a cursed-energy perspective.</p>
-        <p>He runs a cursed spirit basketball training programme at CMAC. The slogan is "If you can outrebound a vengeful spirit, you can outrebound anyone." Three spirits have enrolled voluntarily.</p>
+        <p>He runs a cursed spirit basketball training programme at CMAC. The slogan is "If you can outrebound a vengeful spirit, you can outrebound anyone." Three spirits have enrolled voluntarily. Vincent comes to the sessions to settle their score from every angle. Woojoo doesn't mind. When it is freezing on the Back Mountain and someone needs to reach something on a high shelf, Woojoo is the first call. He pretends to find this annoying. He never is.</p>
         <p><em>"Height is just another word for altitude advantage. I have the most of it. This is not complicated."</em></p>
       </div>
 
@@ -390,7 +395,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <p>Chogun was a US Air Force jump instructor who decided to test an unsanctioned high-altitude jump without the standard safety equipment because, as he later explained, he "wanted to understand the fear from the inside." He understood the fear from the inside. At roughly 3,000 metres with no chute deploying correctly, his cursed energy manifested as a full-body field of aerial momentum control that kept him alive long enough to improvise a landing. He landed on a cursed spirit that had been dormant in a field outside Okinawa for sixty years and accidentally exorcised it, which is how the Japanese Jujutsu Council found out about him.</p>
         <p>His obsession with sneakers predates his sorcery career and is independent of it, but the two have become entangled. His ultimate technique, Those Jordans Are Fake, is the only technique in documented cursed combat history that requires shoe authentication as a trigger condition. The Jujutsu Council's technical committee reviewed it three times and concluded it was legitimate and also deeply strange.</p>
         <p class="highlight">The toilet selfie incident is real. It produced a 50% combat boost that lasted six hours. He has attempted to replicate the exact conditions four times. It has not worked again. He refuses to discuss the original circumstances. The photo exists on his phone, unlabelled, in a folder called "reference material."</p>
-        <p>He takes the sneaker thing seriously. He has paused active combat to authenticate enemy footwear. He has been ambushed twice as a direct result. He considers this an acceptable professional risk.</p>
+        <p>He takes the sneaker thing seriously. He has paused active combat to authenticate enemy footwear. He has been ambushed twice as a direct result. He considers this an acceptable professional risk. On the Back Mountain he is the person who lands from high-altitude training jumps directly into the noodle circle, checks everyone's shoes for authenticity on arrival, and then sits down like nothing unusual happened. The mountain crew would not have it any other way.</p>
         <p><em>"Fear is data. I collect data in interesting ways. The methods are not always conventional. The results are always worth it."</em></p>
       </div>
 
@@ -400,7 +405,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <p>Ichigatsu was a Kyoto University mathematics research student who published a paper titled "Hilbert Space Compliance in Measured Cursed Energy Systems" that the Jujutsu Council described as "either the most dangerous or most useful document produced by a civilian in the last forty years, and we cannot determine which." He was recruited immediately. His cursed energy had manifested silently, without incident, at some point during his doctoral research — he is not sure exactly when, because the symptoms (everything looking like a solvable equation, perfect spatial awareness, the ability to calculate attack trajectories 0.5 seconds before they happen) were consistent enough with his normal mental state that he had not noticed the difference.</p>
         <p>His technique decomposes enemy cursed techniques into mathematical components and then attacks those components directly. He does not block attacks. He solves them. The distinction matters to him deeply and he will explain it at length to anyone who conflates the two.</p>
         <p class="highlight">He came to CMAC specifically because Cici was there. He had read her cursed-energy conservation paper and had seven pages of precise, respectful critique and three pages of genuine admiration. He considered her the only person currently working in the field who was using correct methodology. He introduced himself by handing her the critique. She handed him her own seven-page response, which she had apparently written about his work before he arrived. They have been in disagreement about three specific theoretical points for four months. Neither has backed down. Both consider this the most stimulating academic relationship of their career.</p>
-        <p>He has calculated that Charlotte's healing technique contains an unsolved variable he has never been able to factor. He stops running the calculation when it gets close to a solution. He is not yet sure why.</p>
+        <p>He has calculated that Charlotte's healing technique contains an unsolved variable he has never been able to factor. He stops running the calculation when it gets close to a solution. He is not yet sure why. He attends Back Mountain sessions because the data on cooperative high-stress sorcerer dynamics is, as he puts it, "statistically significant." The others know he just likes being there. He knows they know. This is fine.</p>
         <p><em>"Your technique has already been solved. I completed the proof 0.5 seconds before you activated it. I am simply being polite by allowing you to finish."</em></p>
       </div>
 
@@ -409,7 +414,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <p class="highlight">Technique: Spacetime Reversal (時空逆転) · Grade: Special · Affiliation: Cursed Affairs Special Division</p>
         <p>Lin Zhaofu has died forty-six times. He is thirty-four years old. The deaths are why he looks older than he should, why his hair carries silver streaks that do not match his age, why he moves through rooms with the particular stillness of someone who has already calculated every possible exit. Each time he dies — or watches someone he was protecting die, or fails in a way that cannot be undone — his technique resets the timeline, preserving only his own memory of what happened. He wakes up in the past. He knows what is coming. He tries again.</p>
         <p>The original trauma was a factory accident that killed his father when Zhaofu was sixteen. He rewound it. He has not been able to explain, in the three subsequent decades, whether that was the right choice or the beginning of a problem he cannot stop solving. The technique does not care about right choices. It only offers more attempts.</p>
-        <p class="highlight">He came to CMAC because his projections — run across forty-six separate timelines — showed a convergence event that could only be resolved with the specific configuration of sorcerers present at the academy. He did not tell anyone this when he arrived. He enrolled as a transfer student, found a quiet room, and began the work of knowing everyone well enough to understand how they would move when it mattered.</p>
+        <p class="highlight">He came to CMAC because his projections — run across forty-six separate timelines — showed a convergence event that could only be resolved with the specific configuration of sorcerers present at the academy. He did not tell anyone this when he arrived. He enrolled as a transfer student, found a quiet room, and began the work of knowing everyone well enough to understand how they would move when it mattered. He has sat with the Back Mountain crew at 2am more times than he will acknowledge. In every timeline where it matters, they are still there when he needs them.</p>
         <p>He is a Special Grade sorcerer who currently operates at Grade 1 output because running forty-six timeline reversals has cost him cursed energy capacity he has not yet recovered. He does not tell anyone this. The strategic advantage of being underestimated is one of the few he can still generate freely.</p>
         <p><em>"I have seen this moment before. Several times. You're doing better than the previous attempts. That matters — it means the loop is not fixed. It means today could finally be different."</em></p>
       </div>
@@ -509,7 +514,7 @@ function showScreen(id){
 // ═══════════════════════════════════════════════════════════════
 const CHARS = [
   // ── ZANE ─────────────────────────────────────────────
-  {id:'zane',name:'Zane',role:'buff',
+  {id:'zane',name:'Zane',role:'buff',grade:'Special Grade',
   lore:'Master of Memory Projection. He knows everyone a little too well.',
   skills:[
     {name:'Memory Projection',type:'magic',cost:1,trigV:1,desc:'Project a spirit copy — 90% magic dmg on one enemy.',
@@ -545,7 +550,7 @@ const CHARS = [
   ]},
 
   // ── HARRISON ──────────────────────────────────────────
-  {id:'harrison',name:'Harrison',role:'atk',
+  {id:'harrison',name:'Harrison',role:'atk',grade:'1',
   lore:'Grand Larceny Theory. If it exists, he can steal it.',
   skills:[
     {name:'Big-Step Jumper',type:'physical',cost:1,trigV:1,desc:'"Kobe!" — 90% hit chance, 110% physical dmg.',
@@ -571,14 +576,15 @@ const CHARS = [
       let t=randEl(en);if(!t)return;
       if(Math.random()<0.90)status(t,'stunned',Math.random()<0.40?2:1);
       dmg(s,t,1.0,'physical',G);
-      while(Math.random()<0.35){t=isAlive(t)?t:randEl(en.filter(isAlive));if(!t)break;dmg(s,t,1.70,'physical',G);}
+      let chainCount=0;
+      while(chainCount<8&&Math.random()<0.35){t=isAlive(t)?t:randEl(en.filter(isAlive));if(!t)break;dmg(s,t,1.70,'physical',G);chainCount++;}
     }},
   reminisce:[
     {name:'Being Played',desc:'+70% dmg next turn, +3 stamina. Warning: 5% true dmg to an ally.',fn(s,al,G){buff(s,'dmgUp',0.70,2);s.stamina=Math.min(s.maxStamina,s.stamina+3);buff(s,'friendlyFire',0.05,1);blogf(`Harrison: Being Played! +70% ATK rage`,'buff');}}
   ]},
 
   // ── MADAME ────────────────────────────────────────────
-  {id:'madame',name:'Madame',role:'sup',
+  {id:'madame',name:'Madame',role:'sup',grade:'Special Grade',
   lore:'Cursed energy channelled through food grudges. La gastronomie — c\'est la guerre.',
   skills:[
     {name:'Patate',type:'magic',cost:1,trigV:1,desc:'130% magic dmg + Fries Mark (up to 3): target takes +20% dmg/stack permanently.',
@@ -620,7 +626,7 @@ const CHARS = [
   ]},
 
   // ── WOOJOO ────────────────────────────────────────────
-  {id:'woojoo',name:'Woojoo',role:'ctrl',
+  {id:'woojoo',name:'Woojoo',role:'ctrl',grade:'1',
   lore:'Giant\'s Cage technique. 2.3m of psychological warfare.',
   skills:[
     {name:'Height Suppression',type:'control',cost:1,trigV:1,desc:'Stun 1 enemy 1 turn + -15% ATK debuff.',
@@ -665,7 +671,7 @@ const CHARS = [
   ]},
 
   // ── JEFF ──────────────────────────────────────────────
-  {id:'jeff',name:'Jeff',role:'sup',
+  {id:'jeff',name:'Jeff',role:'sup',grade:'1',
   lore:'Candy Heart philosophy. His jacket is a childhood relic. Don\'t touch it.',
   skills:[
     {name:'Jacket Combo',type:'physical',cost:1,trigV:1,desc:'80% physical dmg.',
@@ -695,7 +701,7 @@ const CHARS = [
   ]},
 
   // ── JAKE ──────────────────────────────────────────────
-  {id:'jake',name:'Jake',role:'atk',
+  {id:'jake',name:'Jake',role:'atk',grade:'1',
   lore:'Cursed energy as street photography. Headshots are a lifestyle choice.',
   skills:[
     {name:'Psh Psh Psh',type:'physical',cost:1,trigV:1,desc:'Three-hit combo: 20%+35%+45% physical.',
@@ -717,7 +723,7 @@ const CHARS = [
   ]},
 
   // ── VINCENT ───────────────────────────────────────────
-  {id:'vincent',name:'Vincent',role:'atk',
+  {id:'vincent',name:'Vincent',role:'atk',grade:'1',
   lore:'Unstoppable Force technique. Bangkok arena legend with 37 wins before meeting Woojoo.',
   skills:[
     {name:'Low Sweep',type:'physical',cost:1,trigV:1,desc:'165% physical leg hit.',
@@ -749,7 +755,7 @@ const CHARS = [
   ]},
 
   // ── LUCAS ─────────────────────────────────────────────
-  {id:'lucas',name:'Lucas',role:'atk',
+  {id:'lucas',name:'Lucas',role:'atk',grade:'1',
   lore:'"No You" — Countercurse specialist. His cursed tongue is his deadliest weapon.',
   skills:[
     {name:'Ur Mom Curse',type:'magic',cost:1,trigV:1,desc:'101% magic dmg + 0.9 GPA point.',
@@ -794,7 +800,7 @@ const CHARS = [
   reminisce:[]},
 
   // ── FELIZ ─────────────────────────────────────────────
-  {id:'feliz',name:'Feliz',role:'buff',
+  {id:'feliz',name:'Feliz',role:'buff',grade:'2',
   lore:'Lonely Resonance. If nobody watches, does the pain exist?',
   skills:[
     {name:'Basic Punch',type:'physical',cost:1,trigV:1,desc:'70% physical dmg.',
@@ -818,7 +824,7 @@ const CHARS = [
   reminisce:[]},
 
   // ── CICI ──────────────────────────────────────────────
-  {id:'cici',name:'Cici',role:'ctrl',
+  {id:'cici',name:'Cici',role:'ctrl',grade:'1',
   lore:'Paradox Fist Theory. Every punch is a physics proof.',
   skills:[
     {name:'Backhand',type:'physical',cost:1,trigV:1,desc:'70% physical dmg.',
@@ -846,7 +852,7 @@ const CHARS = [
   ]},
 
   // ── TREX ──────────────────────────────────────────────
-  {id:'trex',name:'Trex',role:'ctrl',
+  {id:'trex',name:'Trex',role:'ctrl',grade:'2',
   lore:'Commercial Soul curse. Life is a risk investment and you are a potential stock.',
   skills:[
     {name:'Keychain Shot',type:'magic',cost:1,trigV:1,desc:'85% magic dmg.',
@@ -885,7 +891,7 @@ const CHARS = [
   ]},
 
   // ── MICHELLE ──────────────────────────────────────────
-  {id:'michelle',name:'Michelle',role:'ctrl',
+  {id:'michelle',name:'Michelle',role:'ctrl',grade:'Special Grade',
   lore:'Extravagance Theory. Money doesn\'t solve everything — it just makes the problem more interesting.',
   skills:[
     {name:'Math Genius',type:'control',cost:2,trigV:1,desc:'Target enemy can only use Skill 1 next turn.',
@@ -916,7 +922,7 @@ const CHARS = [
   reminisce:[]},
 
   // ── CHARLOTTE ─────────────────────────────────────────
-  {id:'charlotte',name:'Charlotte',role:'buff',
+  {id:'charlotte',name:'Charlotte',role:'buff',grade:'1',
   lore:'Resonance Rebirth. London med student. Absolutely not Rika. The badges are ironic.',
   skills:[
     {name:'Skill Echo',type:'buff',cost:1,trigV:1,desc:"Copy one ally's skill 2 at 70% effect.",
@@ -945,7 +951,7 @@ const CHARS = [
   reminisce:[]},
 
   // ── LJ ────────────────────────────────────────────────
-  {id:'lj',name:'LJ',role:'atk',
+  {id:'lj',name:'LJ',role:'atk',grade:'1',
   lore:'Verbal Chain curse. 826GB of blackmail cursed symbols on her phone.',
   skills:[
     {name:'Curse: Ahiya',type:'magic',cost:1,trigV:1,desc:'80% magic dmg.',
@@ -972,7 +978,7 @@ const CHARS = [
   ]},
 
   // ── CHOGUN ────────────────────────────────────────────
-  {id:'chogun',name:'Chogun',role:'atk',
+  {id:'chogun',name:'Chogun',role:'atk',grade:'1',
   lore:'Airborne Warfare technique. Charges by the pair of shoes. Toilet selfies are not discussed.',
   skills:[
     {name:'Swing Strike',type:'physical',cost:1,trigV:1,desc:'85% physical — aerial pendulum hit.',
@@ -1002,7 +1008,7 @@ const CHARS = [
   ]},
 
   // ── ICHIGATSU ─────────────────────────────────────────
-  {id:'ichigatsu',name:'Ichigatsu',role:'ctrl',
+  {id:'ichigatsu',name:'Ichigatsu',role:'ctrl',grade:'Special Grade',
   lore:'Analytic Formula. He calculated you were going to lose 0.5 seconds before you started.',
   skills:[
     {name:'Factorization',type:'magic',cost:1,trigV:1,desc:'Decompose enemy cursed energy: 90% magic + -20% their ATK 1 turn.',
@@ -1028,7 +1034,7 @@ const CHARS = [
   ]},
 
   // ── LIN ZHAOFU ────────────────────────────────────────
-  {id:'linzhaofu',name:'Lin Zhaofu',role:'ctrl',
+  {id:'linzhaofu',name:'Lin Zhaofu',role:'ctrl',grade:'Special Grade',gradeOutput:'1',
   lore:'Spacetime Reversal. Special-grade. He\'s lived this moment several times already.',
   skills:[
     {name:'Echo Strike',type:'physical',cost:1,trigV:1,desc:'Delayed spacetime hit: 80% physical, ignores 20% of dodge.',
@@ -1058,7 +1064,81 @@ const CHARS = [
     }},
   reminisce:[
     {name:'I\'ve Seen This Moment',desc:'Predict enemy attack — grant all allies 50% dmg reduction next hit.',fn(s,al,G){al.forEach(a=>{if(isAlive(a))buff(a,'dmgReduce',0.50,1);});blogf(`Lin Zhaofu: I have seen this. Team -50% dmg next hit`,'buff');}}
-  ]}
+  ]},
+
+  // ── JJK STORY-ONLY CHARACTERS ────────────────────────
+  {id:'gojo_s',name:'Gojo Satoru',role:'atk',grade:'Special Grade',storyOnly:true,
+  lore:'Six Eyes and Limitless. The strongest. He knows it. He never shuts up about it.',
+  skills:[
+    {name:'Hollow Purple',type:'magic',cost:1,trigV:1,desc:'300% magic dmg — infinity convergence.',
+     fn(s,t,G){dmg(s,t[0],3.0,'magic',G);}},
+    {name:'Blue Pull',type:'control',cost:2,trigV:2,desc:'Draw all enemies together, 150% magic AOE.',
+     fn(s,t,G){t.filter(isAlive).forEach(e=>{dmg(s,e,1.50,'magic',G);});blogf(`Gojo: Blue pull!`,'ctrl');}},
+    {name:'Red Repulsion',type:'magic',cost:3,trigV:3,desc:'Push all enemies: 200% magic + stun each.',
+     fn(s,t,G){t.filter(isAlive).forEach(e=>{dmg(s,e,2.0,'magic',G);status(e,'stunned',1);});blogf(`Gojo: Red repulsion!`,'ult');}}
+  ],
+  ult:{name:'Domain Expansion: Infinite Void',desc:'All enemies sealed: stun 2 turns + 250% magic each.',
+    fn(s,en,G){
+      blogf(`💥 INFINITE VOID — welcome to Gojo's domain!`,'ult');
+      en.filter(isAlive).forEach(e=>{status(e,'stunned',2);dmg(s,e,2.50,'magic',G);});
+    }},
+  reminisce:[]},
+
+  {id:'yuji_i',name:'Yuji Itadori',role:'atk',grade:'1',storyOnly:true,
+  lore:'Divergent Fist. Sukuna\'s vessel. Heart as big as his biceps.',
+  skills:[
+    {name:'Divergent Fist',type:'physical',cost:1,trigV:1,desc:'150% physical — delayed cursed energy burst.',
+     fn(s,t,G){dmg(s,t[0],1.50,'physical',G);}},
+    {name:'Mahoraga Punch',type:'physical',cost:3,trigV:2,desc:'220% physical AOE — pure soul-body output.',
+     fn(s,t,G){t.filter(isAlive).forEach(e=>dmg(s,e,2.20,'physical',G));}},
+    {name:'Black Flash',type:'physical',cost:4,trigV:3,desc:'40% chance: 300% physical CRIT. Otherwise 200% physical.',
+     fn(s,t,G){
+       const e=t[0];
+       if(Math.random()<0.40){blogf(`BLACK FLASH!`,'crit');dmg(s,e,3.0,'physical',G,{forceCrit:true});}
+       else dmg(s,e,2.0,'physical',G);
+     }}
+  ],
+  ult:{name:'Sukuna Release',desc:'Sukuna takes over: all enemies take 400% magic dmg.',
+    fn(s,en,G){
+      blogf(`💥 SUKUNA RELEASE — "I alone am the pinnacle."`, 'ult');
+      en.filter(isAlive).forEach(e=>dmg(s,e,4.0,'magic',G));
+    }},
+  reminisce:[]},
+
+  {id:'megumi_f',name:'Megumi Fushiguro',role:'ctrl',grade:'1',storyOnly:true,
+  lore:'Ten Shadows. Pragmatic to a fault. Very quietly has feelings about everything.',
+  skills:[
+    {name:'Nue',type:'magic',cost:1,trigV:1,desc:'Winged shadow — 100% magic + 30% stun chance.',
+     fn(s,t,G){dmg(s,t[0],1.0,'magic',G);if(Math.random()<0.30)status(t[0],'stunned',1);}},
+    {name:'Divine Dog',type:'physical',cost:2,trigV:2,desc:'Twin hounds — 80% physical twice.',
+     fn(s,t,G){[0,1].forEach(()=>dmg(s,t[0],0.80,'physical',G));}},
+    {name:'Max Elephant',type:'control',cost:3,trigV:3,desc:'Massive spirit — 180% physical AOE + stun all 1 turn.',
+     fn(s,t,G){t.filter(isAlive).forEach(e=>{dmg(s,e,1.80,'physical',G);status(e,'stunned',1);});blogf(`Megumi: Max Elephant stomp!`,'ctrl');}}
+  ],
+  ult:{name:'Domain Expansion: Chimera Shadow Garden',desc:'Shadow clones: each enemy hit by 5 shadows (70% magic each).',
+    fn(s,en,G){
+      blogf(`💥 CHIMERA SHADOW GARDEN — shadow play`,'ult');
+      en.filter(isAlive).forEach(e=>{for(let i=0;i<5;i++)dmg(s,e,0.70,'magic',G);});
+    }},
+  reminisce:[]},
+
+  {id:'nobara_k',name:'Nobara Kugisaki',role:'atk',grade:'1',storyOnly:true,
+  lore:'Straw Doll Technique. She will annihilate you and then criticize your fashion.',
+  skills:[
+    {name:'Hairpin',type:'physical',cost:1,trigV:1,desc:'Nail throw — 110% physical, 20% poison DOT.',
+     fn(s,t,G){dmg(s,t[0],1.10,'physical',G);if(Math.random()<0.20)buff(t[0],'dotMagic',0.30,2);}},
+    {name:'Resonance',type:'magic',cost:2,trigV:2,desc:'Curse technique resonance — 160% magic.',
+     fn(s,t,G){dmg(s,t[0],1.60,'magic',G);}},
+    {name:'Straw Doll Barrage',type:'physical',cost:3,trigV:3,desc:'5 nails: 50% physical each + curse DOT.',
+     fn(s,t,G){const e=t[0];for(let i=0;i<5;i++)dmg(s,e,0.50,'physical',G);buff(e,'dotMagic',0.40,2);blogf(`Nobara: Straw Doll Barrage!`,'dmg');}}
+  ],
+  ult:{name:'Hairpin Supernova',desc:'Nail storm: 3 targets × 3 nails, 120% magic each + stun.',
+    fn(s,en,G){
+      blogf(`💥 HAIRPIN SUPERNOVA — Nobara goes FULL SEND`,'ult');
+      const targets=en.filter(isAlive).sort(()=>Math.random()-0.5).slice(0,3);
+      targets.forEach(e=>{for(let i=0;i<3;i++)dmg(s,e,1.20,'magic',G);status(e,'stunned',1);});
+    }},
+  reminisce:[]}
 ];
 
 // ═══════════════════════════════════════════════════════════════
@@ -1068,19 +1148,27 @@ let GS=null;
 let playerPicks=[], enemyPicks=[];
 let pendingSkill=null, pendingTargetType=null;
 let turnQueue=[], globalTurn=1;
-let storyCleared=[false,false,false];
+let storyCleared=[false,false,false,false];
 
 // ── INIT CHARACTER ──
 function initChar(tmpl,team){
+  const g=tmpl.grade||'1';
+  const statKey=tmpl.gradeOutput||g;
+  const gradeStats={
+    'Special Grade':{baseDmg:130,maxHp:1200,maxStamina:9},
+    '1':{baseDmg:100,maxHp:1000,maxStamina:8},
+    '2':{baseDmg:80,maxHp:850,maxStamina:7}
+  };
+  const gs=gradeStats[statKey]||gradeStats['1'];
   return{
-    id:tmpl.id, name:tmpl.name, role:tmpl.role, lore:tmpl.lore,
-    baseDmg:100, baseHp:1000,
-    maxHp:1000, hp:1000, shield:0,
-    stamina:5, maxStamina:8,
+    id:tmpl.id, name:tmpl.name, role:tmpl.role, lore:tmpl.lore, grade:g,
+    baseDmg:gs.baseDmg, baseHp:gs.maxHp,
+    maxHp:gs.maxHp, hp:gs.maxHp, shield:0,
+    stamina:5, maxStamina:gs.maxStamina,
     trigV:0, buffs:[], statuses:{},
     reminisceUsed:false, dead:false, benched:false, benchedTurns:0, benchMax:2,
     friesMark:0, gpa:0, croissant:false, team,
-    skills:tmpl.skills, ultimate:tmpl.ultimate, reminisce:tmpl.reminisce||[]
+    skills:tmpl.skills, ultimate:tmpl.ult, reminisce:tmpl.reminisce||[]
   };
 }
 
@@ -1171,15 +1259,18 @@ function renderDraft(){
   else if(enemyPicks.length<4)pTxt.textContent=`Enemy picks... (${4-enemyPicks.length} remaining)`;
   else pTxt.textContent='Draft complete — ready to battle!';
 
-  CHARS.forEach(c=>{
+  CHARS.filter(c=>!c.storyOnly).forEach(c=>{
     const isp=playerPicks.find(x=>x.id===c.id);
     const ise=enemyPicks.find(x=>x.id===c.id);
     const taken=isp||ise;
     const card=document.createElement('div');
     card.className=`rcard${taken?' taken':''}${isp?' sel-p':''}${ise?' sel-e':''}`;
+    const gbClass=c.grade==='Special Grade'?'gb-special':c.grade==='2'?'gb-2':'gb-1';
+    const gradeLabel=c.grade==='Special Grade'?'SG':c.grade==='2'?'G2':'G1';
     card.innerHTML=`
       <div class="rcard-name">${c.name}</div>
       <div class="rcard-role-badge rb-${c.role}">${c.role.toUpperCase()}</div>
+      <div class="grade-badge ${gbClass}">${gradeLabel}</div>
       <div class="rcard-desc">${c.lore}</div>`;
     if(!taken&&playerPicks.length<4)card.addEventListener('click',()=>pickChar(c));
     grid.appendChild(card);
@@ -1198,7 +1289,7 @@ function pickChar(c){
 }
 
 function enemyAutoPick(){
-  const avail=CHARS.filter(c=>!playerPicks.find(p=>p.id===c.id)&&!enemyPicks.find(p=>p.id===c.id));
+  const avail=CHARS.filter(c=>!c.storyOnly&&!playerPicks.find(p=>p.id===c.id)&&!enemyPicks.find(p=>p.id===c.id));
   if(!avail.length||enemyPicks.length>=4)return;
   // Balanced AI: prefer role diversity
   const roleCount={atk:0,sup:0,ctrl:0,buff:0};
@@ -1266,7 +1357,7 @@ function renderRow(rowId,team,side){
     if(c.buffs?.find(b=>b.type==='dotMagic'&&b.dur>0))icons.push('🔥DOT');
     card.innerHTML=`
       <div class="fcard-name">${c.name}</div>
-      <div class="fcard-sub">${c.role.toUpperCase()} | STA:${c.stamina} TRG:${c.trigV||0}/10</div>
+      <div class="fcard-sub">${c.grade||'G1'} | ${c.role.toUpperCase()} | STA:${c.stamina} TRG:${c.trigV||0}/10</div>
       <div class="bar-row"><div class="bar-lbl"><span>HP</span><span>${Math.round(c.hp)}/${Math.round(c.maxHp)}</span></div>
         <div class="bar-track"><div class="bar-fill bar-hp${hp<30?' low':''}" style="width:${hp}%"></div></div></div>
       ${c.shield>0?`<div class="bar-row"><div class="bar-lbl"><span>🛡 Shield</span><span>${Math.round(c.shield)}</span></div>
@@ -1396,8 +1487,7 @@ function executeSkill(target){
   checkDeaths();
   renderBattle();
   if(checkWin())return;
-  // Re-render skill panel so player can see ult/end-turn buttons after acting
-  if(actor.team==='player')renderSkillPanel(actor);
+  if(actor.team==='player')endTurn(actor);
 }
 
 function execUlt(actor){
@@ -1408,7 +1498,7 @@ function execUlt(actor){
   checkDeaths();
   renderBattle();
   if(checkWin())return;
-  if(actor.team==='player')renderSkillPanel(actor);
+  if(actor.team==='player')endTurn(actor);
 }
 
 function execReminisce(actor,r){
@@ -1698,6 +1788,75 @@ const STORY_CHAPTERS=[
       {speaker:'LIN ZHAOFU',text:'*pale* That was attempt forty-six. One more. We have one more.'},
       {speaker:'ICHIGATSU',text:'*quietly* You can\'t keep doing this.'},
       {speaker:'LIN ZHAOFU',text:'I know. So let\'s not have a forty-eighth.'},
+    ]
+  },
+  {
+    num:4, title:'VERSUS: THE MAIN VERSE',
+    desc:'Tokyo and Kyoto send their best. CMAC sends everyone. This was never going to be a formal exchange.',
+    available:false,
+    dialogue:[
+      {speaker:'NARRATOR',text:'The Jujutsu Council arranges a "formal exchange session" between CMAC and Tokyo/Kyoto High. Director Zhang Wei has prepared a structured agenda. Nobody follows it.',bg:'CMAC × TOKYO HIGH'},
+      {speaker:'GOJO',text:'So this is CMAC. *looks around* I expected more blood on the walls. You must be doing something wrong.'},
+      {speaker:'HARRISON',text:'*eating from a bowl of noodles* There\'s blood on the training hall floor. We washed the walls last week.'},
+      {speaker:'GOJO',text:'A man who eats during a diplomatic exchange. *sits down* I respect this. What are you having?'},
+      {speaker:'HARRISON',text:'Instant noodles. Shrimp flavour.'},
+      {speaker:'GOJO',text:'Unacceptable. *produces a bag of imported ramen from somewhere* You should try proper food. My students eat like that and I feel personally insulted.'},
+      {speaker:'YUJI',text:'*to Harrison* He\'s not wrong, the ramen at Tokyo High is incredible. How many of these can you eat in one sitting?'},
+      {speaker:'HARRISON',text:'Eleven.'},
+      {speaker:'YUJI',text:'...Can I sit here?'},
+      {speaker:'MEGUMI',text:'*quietly, looking at the Back Mountain ridge* They live up there?'},
+      {speaker:'ZANE',text:'Some of us, yes. You can tell which ones — we\'re the ones who smell faintly of campfire and look slightly feral.'},
+      {speaker:'MEGUMI',text:'*a pause* ...That\'s not a bad way to live.'},
+      {speaker:'NOBARA',text:'*to LJ* Okay so your phone case — where did you get that? Because I need you to know I almost had that exact case and I want to know if you got it first.'},
+      {speaker:'LJ',text:'*immediately* I got it in September. You can check my camera roll. I have documentation.'},
+      {speaker:'NOBARA',text:'Why do you have documentation?'},
+      {speaker:'LJ',text:'Because I knew someone was going to challenge me on it eventually. I just didn\'t know who.'},
+      {speaker:'NOBARA',text:'*pause* Okay you\'re either my worst enemy or my best friend and I need five minutes to decide which.'},
+      {speaker:'NANAMI',text:'*to Lin Zhaofu* You\'ve done this before. Not this specifically. The — managing a timeline that others don\'t know they\'re in.'},
+      {speaker:'LIN ZHAOFU',text:'Forty-seven times.'},
+      {speaker:'NANAMI',text:'*a long, acknowledging pause* I\'m sorry.'},
+      {speaker:'LIN ZHAOFU',text:'It\'s manageable. *beat* That\'s not entirely true. But it\'s workable.'},
+      {speaker:'NANAMI',text:'Yes. That distinction matters.'},
+      {speaker:'GOJO',text:'*to Zane* Show me something interesting. I came all the way to Chiang Mai. I deserve to be impressed.'},
+      {speaker:'ZANE',text:'You want me to impress Gojo Satoru.'},
+      {speaker:'GOJO',text:'I want you to try. The trying is usually the interesting part.'},
+      {speaker:'NARRATOR',text:'Zane projects Gojo\'s own Limitless technique back at him — forty percent accuracy, imperfect geometry, held for approximately four seconds before it collapses. Four seconds is a long time for something that should be impossible.'},
+      {speaker:'GOJO',text:'*very quiet for a moment* ...Hm.'},
+      {speaker:'ZANE',text:'Forty percent. It falls apart after four seconds. I\'ve been working on it for three weeks.'},
+      {speaker:'GOJO',text:'*starts laughing* Three WEEKS? You figured out forty percent of my technique in three weeks from WATCHING? *still laughing* This is incredible. This is actually incredible. Nobody tell Nanami.'},
+      {speaker:'NARRATOR',text:'The formal exchange program is abandoned when Vincent and Yuji end up in an unsanctioned sparring match that destroys the wall of Training Hall B (which, as LJ points out, had no east wall to begin with) and most of the equipment storage shed. Both are fine. Both are delighted. Neither wins.'},
+      {speaker:'VINCENT',text:'*covered in rubble* That was good.'},
+      {speaker:'YUJI',text:'*also covered in rubble* Yeah. That was really good. Same time tomorrow?'},
+      {speaker:'VINCENT',text:'Yes.'},
+      {speaker:'NARRATOR',text:'The Tokyo/Kyoto delegation ends up on the Back Mountain as the sun goes down. Trex has produced noodles from somewhere. Gojo is sitting slightly apart from the group, eating, pretending not to find this wholesome.',bg:'BACK MOUNTAIN — SUNSET'},
+      {speaker:'YUJI',text:'*looking at the jungle* This place is amazing. It\'s like... everyone here is so —'},
+      {speaker:'HARRISON',text:'Unhinged?'},
+      {speaker:'YUJI',text:'I was going to say real. But also unhinged. But like — good unhinged.'},
+      {speaker:'ZANE',text:'*passing noodles* That\'s the most accurate description of the Back Mountain I\'ve ever heard.'},
+      {speaker:'GOJO',text:'*from his slightly-apart position, not looking at anyone* ...These noodles are fine.'},
+      {speaker:'LJ',text:'He means he\'s having a good time.'},
+      {speaker:'GOJO',text:'I said what I said.'},
+    ],
+    playerTeam:['zane','harrison','vincent','lj'],
+    enemyTeam:['gojo_s','yuji_i','megumi_f','nobara_k'],
+    enemyNote:'The formal exchange turns into a brawl. Represent CMAC. The Back Mountain is watching.',
+    winDialogue:[
+      {speaker:'NARRATOR',text:'CMAC holds its ground against Tokyo High. This is, by any metric, an extraordinary result.',},
+      {speaker:'GOJO',text:'*sitting up from where he landed* Okay. Okay. That was — *pause* — you\'re all considerably better than you look.'},
+      {speaker:'HARRISON',text:'We look pretty good.'},
+      {speaker:'GOJO',text:'You look like you sleep on a mountain. The compliment stands. I\'m saying it was unexpected.'},
+      {speaker:'ZANE',text:'We\'ll take it.'},
+      {speaker:'YUJI',text:'*to Vincent, genuinely delighted despite being defeated* We are DEFINITELY doing this again.'},
+      {speaker:'VINCENT',text:'Obviously.'},
+      {speaker:'NARRATOR',text:'Gojo arranges a second exchange session before leaving. He does not tell anyone he is looking forward to it. This is fine. Everyone knows.'},
+    ],
+    loseDialogue:[
+      {speaker:'NARRATOR',text:'Tokyo High wins on points. Barely. The margin is smaller than anyone expected.',},
+      {speaker:'GOJO',text:'Good fight. Better than the last three schools we visited combined.'},
+      {speaker:'HARRISON',text:'*from the floor* We\'ll win the rematch.'},
+      {speaker:'GOJO',text:'I\'m counting on it. *to Zane* Work on that forty percent. I want to see sixty by next time.'},
+      {speaker:'ZANE',text:'...I\'ll see what I can do.'},
+      {speaker:'NARRATOR',text:'A rematch is scheduled. The Back Mountain starts training harder. Not out of pride. Just because it would be fun.'},
     ]
   }
 ];
