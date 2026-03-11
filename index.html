@@ -1265,12 +1265,12 @@ function renderDraft(){
     const taken=isp||ise;
     const card=document.createElement('div');
     card.className=`rcard${taken?' taken':''}${isp?' sel-p':''}${ise?' sel-e':''}`;
-    const gbClass=c.grade==='Special Grade'?'gb-special':c.grade==='2'?'gb-2':'gb-1';
-    const gradeLabel=c.grade==='Special Grade'?'SG':c.grade==='2'?'G2':'G1';
+    const gradeMap={'Special Grade':{cls:'gb-special',lbl:'SG'},'2':{cls:'gb-2',lbl:'G2'}};
+    const gm=gradeMap[c.grade]||{cls:'gb-1',lbl:'G1'};
     card.innerHTML=`
       <div class="rcard-name">${c.name}</div>
       <div class="rcard-role-badge rb-${c.role}">${c.role.toUpperCase()}</div>
-      <div class="grade-badge ${gbClass}">${gradeLabel}</div>
+      <div class="grade-badge ${gm.cls}">${gm.lbl}</div>
       <div class="rcard-desc">${c.lore}</div>`;
     if(!taken&&playerPicks.length<4)card.addEventListener('click',()=>pickChar(c));
     grid.appendChild(card);
