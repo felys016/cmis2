@@ -245,9 +245,9 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 
       <div class="lore-section">
         <h3>The Back Mountain (後山)</h3>
-        <p class="highlight">Behind the main campus lies an untamed jungle ridge the locals call the Back Mountain — 後山. No faculty patrol it. No rules govern it. It is where the real bonds are forged and the real fights happen, usually at 2am over instant noodles and basketball arguments that spiral into full cursed-energy exchanges that leave scorch marks on the trees.</p>
-        <p>The original five who claimed this territory — Zane, Harrison, Lucas, Vincent, Feliz — all ended up expelled from the dormitories in the same week of first semester, for five completely unrelated offences, and the Back Mountain was the only place left to sleep. Somewhere between the shared instant noodles and the cursed-energy sparring at 2am, they became the people each other relied on most. By the time the faculty reinstated their dorm privileges, none of them wanted to go back.</p>
-        <p>The mountain is loud, chaotic, and full of people who would genuinely die for each other while also stealing each other's food. This is the same thing, on the Back Mountain. Over time the extended CMAC family gravitates toward the ridge — for training, for the noodles, for the particular comfort of people who will be honest with you about everything except how much they care about you.</p>
+        <p class="highlight">The 後山 — literally "back mountain" — is not a mountain. It is the back courtyard of CMAC's main building: a wide paved area behind Training Hall B that opens onto an overgrown garden, a broken section of the perimeter fence, and a disused outdoor kitchen that somehow still works. The name is informal, coined by students who noticed that the faculty never came back here and the CCTV cameras had been covered in moss since 2019. No patrols. No sign-in sheet. No rules. The courtyard is where the real CMAC happens.</p>
+        <p>The original five who claimed this territory — Zane, Harrison, Lucas, Vincent, Feliz — all ended up expelled from the dormitories in the same week of first semester, for five completely unrelated offences. With nowhere else to sleep, they dragged mattresses to the courtyard, strung a tarp against the wall, and fired up the outdoor kitchen. Somewhere between the shared instant noodles at 2am and the cursed-energy sparring that left scorch marks on the courtyard tiles, they became the people each other relied on most. By the time faculty reinstated their dorm privileges, none of them wanted to go back.</p>
+        <p>The 後山 is loud, chaotic, and full of people who would genuinely die for each other while also stealing each other's food. This is the same thing, at the 後山. Over time the extended CMAC family gravitates toward the courtyard — for training, for the noodles, for the particular comfort of people who will be honest with you about everything except how much they care about you.</p>
       </div>
 
       <div class="lore-section">
@@ -295,7 +295,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
         <p>Feliz was the first child in Los Angeles's St. Agatha's group home to go viral. He was five years old and had learned that performing distress on camera produced donations, which produced attention, which produced something that felt almost like being seen. By eight he had 200,000 followers and a parasocial relationship with an audience that did not know his real name.</p>
         <p>His cursed energy awakened at eleven when a house supervisor who had been skimming the home's funding came for him directly. The donation comments — hundreds of "666" blessings from an active livestream — physically materialised as a barrier and knocked the man across the room. The camera kept rolling. The clip got twelve million views. The supervisor was fired. Feliz did not feel safe for months afterwards.</p>
         <p class="highlight">His technique channels the need to be witnessed into protective energy for others. The irony is not lost on him: his deepest wound is his greatest power. He buffs allies by essentially bleeding attention onto them. He leaves every fight quietly, always glancing back once to see if anyone noticed.</p>
-        <p>He joined the Back Mountain not through drama but through proximity — he was sleeping rough near the ridge because the dorms were loud. Zane left instant noodles outside his tent for three weeks without saying a word to him. On day twenty-two, Feliz came to the fire and sat down. They watched the jungle in silence for an hour. It is the most welcome Feliz has ever felt.</p>
+        <p>He joined the Back Mountain not through drama but through proximity — he was sleeping in the back courtyard because the dorms were loud. Zane left instant noodles near his sleeping bag for three weeks without saying a word to him. On day twenty-two, Feliz came to the fire and sat down. They watched the courtyard in silence for an hour. It is the most welcome Feliz has ever felt.</p>
         <p><em>"If nobody watches, does the pain exist? ...Yes. I've checked. Repeatedly."</em></p>
       </div>
 
@@ -473,7 +473,10 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
   </div>
   <div class="chapters" id="chapters-list"></div>
   <br>
-  <div style="text-align:center;"><button class="back-btn" onclick="showScreen('title-screen')">← BACK TO TITLE</button></div>
+  <div style="text-align:center;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+    <button class="back-btn" onclick="showScreen('title-screen')">← BACK TO TITLE</button>
+    <button class="back-btn" style="border-color:var(--acc);color:var(--acc);" onclick="resetStoryProgress()">↺ RESET PROGRESS</button>
+  </div>
 </div>
 
 <!-- ═══════════════════════════ DIALOGUE ═══════════════════════════ -->
@@ -1148,7 +1151,7 @@ let GS=null;
 let playerPicks=[], enemyPicks=[];
 let pendingSkill=null, pendingTargetType=null;
 let turnQueue=[], globalTurn=1;
-let storyCleared=[false,false,false,false];
+let storyCleared=[false,false,false,false,false,false,false];
 
 // ── INIT CHARACTER ──
 function initChar(tmpl,team){
@@ -1653,210 +1656,555 @@ function showEndModal(won,onComplete){
 }
 
 // ═══════════════════════════════════════════════════════════════
+// STORY MODE — PROGRESS PERSISTENCE
+// ═══════════════════════════════════════════════════════════════
+const SAVE_KEY='cmac_story_s1';
+
+function saveStoryProgress(){
+  localStorage.setItem(SAVE_KEY,JSON.stringify(storyCleared));
+}
+
+function loadStoryProgress(){
+  const saved=localStorage.getItem(SAVE_KEY);
+  if(saved){try{const arr=JSON.parse(saved);if(Array.isArray(arr))storyCleared=arr;}catch(e){}}
+}
+
+function resetStoryProgress(){
+  if(confirm('Reset all story progress? This cannot be undone.')){
+    storyCleared=[false,false,false,false,false,false,false];
+    saveStoryProgress();
+    renderStory();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CURSED SPIRITS DATABASE
+// ═══════════════════════════════════════════════════════════════
+const CURSED_SPIRITS={
+  noise_spirit:{
+    id:'noise_spirit',name:'嘈雜靈',grade:'2',
+    lore:'Grade 2 Noise Spirit — crystallised from six hundred students\' exam anxiety. Disrupts cursed energy resonance.',
+    hp:1200,baseDmg:80,
+    skills:[
+      {name:'Cacophony',type:'magic',cost:1,trigV:1,desc:'Sonic burst — 60% magic, hits all targets.',
+       fn(s,t,G){t.forEach(e=>{if(isAlive(e))dmg(s,e,0.60,'magic',G);});}},
+      {name:'Dissonant Drain',type:'control',cost:2,trigV:2,desc:'Drain 2 stamina from one target.',
+       fn(s,t,G){const e=t[0];if(!isAlive(e))return;const drained=Math.min(2,e.stamina);e.stamina-=drained;blogf(`嘈雜靈: Dissonant Drain! ${e.name} -${drained} STA`,'ctrl');}},
+      {name:'Static Burst',type:'control',cost:3,trigV:3,desc:'AOE stun — 50% chance each, targets all.',
+       fn(s,t,G){t.forEach(e=>{if(isAlive(e)&&Math.random()<0.50)status(e,'stunned',1);});blogf(`嘈雜靈: Static Burst!`,'ctrl');}}
+    ],
+    ult:{name:'Deafening Roar',desc:'AOE 80% magic + all targets lose 1 trigger.',
+      fn(s,en,G){
+        blogf(`💥 嘈雜靈 DEAFENING ROAR — silence everything!`,'ult');
+        en.filter(isAlive).forEach(e=>{dmg(s,e,0.80,'magic',G);e.trigV=Math.max(0,(e.trigV||0)-1);});
+      }}
+  },
+
+  gluttony_wraith:{
+    id:'gluttony_wraith',name:'饕餮の残影',grade:'2',
+    lore:'Grade 2 Gluttony Wraith — born from sixty years of food resentment in CMAC\'s old canteen. It never stops eating.',
+    hp:1200,baseDmg:80,
+    skills:[
+      {name:'Ravenous Bite',type:'magic',cost:1,trigV:1,desc:'120% magic dmg to one target.',
+       fn(s,t,G){dmg(s,t[0],1.20,'magic',G);}},
+      {name:'Consume',type:'heal',cost:2,trigV:2,desc:'Self-heal 15% max HP.',
+       fn(s,t,G){const h=Math.round(s.maxHp*0.15);s.hp=Math.min(s.maxHp,s.hp+h);blogf(`饕餮の残影: Consume — healed ${h} HP`,'heal');}},
+      {name:'Gluttonous Aura',type:'magic',cost:3,trigV:3,desc:'AOE 80% magic + drain 1 stamina from all targets.',
+       fn(s,t,G){t.forEach(e=>{if(!isAlive(e))return;dmg(s,e,0.80,'magic',G);e.stamina=Math.max(0,e.stamina-1);});blogf(`饕餮の残影: Gluttonous Aura!`,'ctrl');}}
+    ],
+    ult:{name:'Banquet of Ruin',desc:'200% magic to highest-HP target + self-heal 20% max HP.',
+      fn(s,en,G){
+        blogf(`💥 饕餮の残影 BANQUET OF RUIN — the feast never ends!`,'ult');
+        const t=en.filter(isAlive).sort((a,b)=>b.hp-a.hp)[0];
+        if(t)dmg(s,t,2.0,'magic',G);
+        const h=Math.round(s.maxHp*0.20);s.hp=Math.min(s.maxHp,s.hp+h);
+        blogf(`饕餮の残影 healed ${h} HP`,'heal');
+      }}
+  },
+
+  echo_competition:{
+    id:'echo_competition',name:'競争の残響',grade:'1',
+    lore:'Grade 1 Echo of Competition — born from rivalry energy accumulated in the back courtyard. It mirrors what it absorbs.',
+    hp:1600,baseDmg:100,
+    skills:[
+      {name:'Reflected Strike',type:'physical',cost:1,trigV:1,desc:'100% physical single hit.',
+       fn(s,t,G){dmg(s,t[0],1.0,'physical',G);}},
+      {name:'Rivalry Surge',type:'buff',cost:2,trigV:2,desc:'Self +25% ATK for 2 turns.',
+       fn(s,t,G){buff(s,'dmgUp',0.25,2);blogf(`競争の残響: Rivalry Surge! +25% ATK`,'buff');}},
+      {name:'Mirror Slam',type:'physical',cost:3,trigV:3,desc:'150% physical single hit.',
+       fn(s,t,G){dmg(s,t[0],1.50,'physical',G);}}
+    ],
+    ult:{name:'Echo Mirror',desc:'180% physical AOE — your own power returned.',
+      fn(s,en,G){
+        blogf(`💥 競争の残響 ECHO MIRROR — your own strength destroys you!`,'ult');
+        en.filter(isAlive).forEach(e=>dmg(s,e,1.80,'physical',G));
+      }}
+  },
+
+  architect_spirit:{
+    id:'architect_spirit',name:'建築師の怨霊',grade:'1',
+    lore:'Grade 1 Architect Spirit — sealed in Training Hall B\'s east wall since CMAC was founded. Its designs were never implemented.',
+    hp:1600,baseDmg:100,
+    skills:[
+      {name:'Foundation Strike',type:'magic',cost:1,trigV:1,desc:'90% magic single hit.',
+       fn(s,t,G){dmg(s,t[0],0.90,'magic',G);}},
+      {name:'Collapse',type:'control',cost:2,trigV:2,desc:'AOE stun — 60% chance each, targets all.',
+       fn(s,t,G){t.forEach(e=>{if(isAlive(e)&&Math.random()<0.60)status(e,'stunned',1);});blogf(`建築師の怨霊: Collapse!`,'ctrl');}},
+      {name:'Reconstruction',type:'heal',cost:3,trigV:3,desc:'Self-restore 20% HP (once per battle). After: 90% magic hit.',
+       fn(s,t,G){
+         if(s._restored){
+           const en=G.pt.filter(isAlive);if(en.length)dmg(s,en[0],0.90,'magic',G);
+           blogf(`建築師の怨霊: Reconstruction spent — strikes instead!`,'sys');return;
+         }
+         s._restored=true;
+         const h=Math.round(s.maxHp*0.20);s.hp=Math.min(s.maxHp,s.hp+h);
+         blogf(`建築師の怨霊: RECONSTRUCTION — self-restored ${h} HP`,'heal');
+       }}
+    ],
+    ult:{name:'Sealed Cage',desc:'Seal one target (stun + locked) + 120% magic to them.',
+      fn(s,en,G){
+        blogf(`💥 建築師の怨霊 SEALED CAGE — entombed!`,'ult');
+        const t=en.filter(isAlive).sort((a,b)=>a.hp-b.hp)[0];
+        if(!t)return;
+        status(t,'stunned',1);status(t,'locked',1);dmg(s,t,1.20,'magic',G);
+        blogf(`${t.name} is sealed inside the architect's design!`,'ctrl');
+      }}
+  },
+
+  debt_collector:{
+    id:'debt_collector',name:'取立て鬼',grade:'1',
+    lore:'Grade 1 Debt Collector — born from unpaid debts in the old market district near CMAC. It always collects. Eventually.',
+    hp:1600,baseDmg:100,
+    skills:[
+      {name:'Overdue Notice',type:'control',cost:1,trigV:1,desc:'Steal 2 stamina from one target.',
+       fn(s,t,G){const e=t[0];if(!isAlive(e))return;const stolen=Math.min(2,e.stamina);e.stamina-=stolen;s.stamina=Math.min(s.maxStamina,s.stamina+stolen);blogf(`取立て鬼: Overdue Notice! Stole ${stolen} STA from ${e.name}`,'ctrl');}},
+      {name:'Invoice',type:'magic',cost:2,trigV:2,desc:'110% magic + -1 trigger from target.',
+       fn(s,t,G){const e=t[0];if(!isAlive(e))return;dmg(s,e,1.10,'magic',G);e.trigV=Math.max(0,(e.trigV||0)-1);blogf(`取立て鬼: Invoice! ${e.name} -1 TRG`,'ctrl');}},
+      {name:'Collection',type:'magic',cost:3,trigV:3,desc:'Stun 1 target + drain 15% current HP.',
+       fn(s,t,G){
+         const e=t[0];if(!isAlive(e))return;
+         status(e,'stunned',1);
+         const d=Math.round(e.hp*0.15);e.hp=Math.max(0,e.hp-d);
+         blogf(`取立て鬼: Collection! ${e.name} stunned + -${d} HP drained`,'dmg');
+       }}
+    ],
+    ult:{name:'Final Notice',desc:'AOE 100% magic + steal all trigger values.',
+      fn(s,en,G){
+        blogf(`💥 取立て鬼 FINAL NOTICE — pay up, every last one!`,'ult');
+        en.filter(isAlive).forEach(e=>{dmg(s,e,1.0,'magic',G);s.trigV=(s.trigV||0)+(e.trigV||0);e.trigV=0;});
+        blogf(`取立て鬼 absorbed all trigger values!`,'buff');
+      }}
+  },
+
+  the_vagrant:{
+    id:'the_vagrant',name:'流浪者の呪霊',grade:'Special Grade',
+    lore:'Special Grade Vagrant Spirit — drifted through Chiang Mai\'s old city for a hundred years, absorbing residual cursed energy from countless sorcerers who passed through.',
+    hp:2200,baseDmg:130,
+    skills:[
+      {name:'Century Drift',type:'magic',cost:1,trigV:1,desc:'130% magic single hit.',
+       fn(s,t,G){dmg(s,t[0],1.30,'magic',G);}},
+      {name:'Residual Regen',type:'heal',cost:2,trigV:2,desc:'Self-regen 10% max HP.',
+       fn(s,t,G){const h=Math.round(s.maxHp*0.10);s.hp=Math.min(s.maxHp,s.hp+h);blogf(`流浪者: Residual Regen +${h} HP`,'heal');}},
+      {name:'Wandering Surge',type:'magic',cost:3,trigV:3,desc:'AOE 90% magic to all targets.',
+       fn(s,t,G){t.forEach(e=>{if(isAlive(e))dmg(s,e,0.90,'magic',G);});}}
+    ],
+    ult:{name:'流浪者の絶望',desc:'Phase 2 (≤50% HP): 200% magic AOE + self +30% ATK 3 turns. Phase 1: 130% magic single.',
+      fn(s,en,G){
+        if(s.hp>s.maxHp*0.50){
+          const t=en.filter(isAlive)[0];
+          if(t)dmg(s,t,1.30,'magic',G);
+          blogf(`流浪者: Drifting Surge (phase 2 not yet reached)`,'dmg');
+          return;
+        }
+        blogf(`💥 流浪者の絶望 — THE VAGRANT AWAKENS! Phase 2 begins!`,'ult');
+        en.filter(isAlive).forEach(e=>dmg(s,e,2.0,'magic',G));
+        buff(s,'dmgUp',0.30,3);
+        blogf(`流浪者: +30% ATK for 3 turns`,'buff');
+      }}
+  },
+
+  the_accumulation:{
+    id:'the_accumulation',name:'蓄積の呪霊',grade:'Special Grade',
+    lore:'Special Grade Accumulation Spirit — fed on the cursed energy of every fight, argument, bond, and emotion in this building for decades. It knows all of you.',
+    hp:2500,baseDmg:130,
+    skills:[
+      {name:'Weight of Years',type:'magic',cost:1,trigV:1,desc:'AOE 100% magic — bears down on all targets.',
+       fn(s,t,G){
+         tryReleasePhase(s,G);
+         t.forEach(e=>{if(isAlive(e))dmg(s,e,1.0,'magic',G);});
+       }},
+      {name:'Absorption',type:'buff',cost:2,trigV:2,desc:'Self +15% ATK — absorbs surrounding cursed energy.',
+       fn(s,t,G){
+         tryReleasePhase(s,G);
+         buff(s,'dmgUp',0.15,3);blogf(`蓄積の呪霊: Absorption +15% ATK`,'buff');
+       }},
+      {name:'Crushing Weight',type:'magic',cost:3,trigV:3,desc:'150% magic single — concentrated accumulated mass.',
+       fn(s,t,G){
+         tryReleasePhase(s,G);
+         dmg(s,t[0],1.50,'magic',G);
+       }}
+    ],
+    ult:{name:'蓄積の爆発',desc:'AOE 120% magic + 10% max HP true dmg each. Release Phase: also 15% max HP to all.',
+      fn(s,en,G){
+        blogf(`💥 蓄積の爆発 — DECADES OF WEIGHT UNLEASHED!`,'ult');
+        tryReleasePhase(s,G);
+        en.filter(isAlive).forEach(e=>{
+          dmg(s,e,1.20,'magic',G);
+          const td=Math.round(s.maxHp*0.10);e.hp=Math.max(0,e.hp-td);blogf(`蓄積: ${e.name} -${td} true dmg`,'dmg');
+        });
+      }}
+  }
+};
+
+// ── INIT SPIRIT CHARACTER ──
+function initSpiritChar(spirit){
+  return{
+    id:spirit.id,name:spirit.name,role:'atk',lore:spirit.lore,grade:spirit.grade,
+    baseDmg:spirit.baseDmg,baseHp:spirit.hp,
+    maxHp:spirit.hp,hp:spirit.hp,shield:0,
+    stamina:5,maxStamina:8,
+    trigV:0,buffs:[],statuses:{},
+    reminisceUsed:false,dead:false,benched:false,benchedTurns:0,benchMax:2,
+    friesMark:0,gpa:0,croissant:false,team:'enemy',
+    skills:spirit.skills,ultimate:spirit.ult,reminisce:[]
+  };
+}
+
+// ── RELEASE PHASE HELPER (蓄積の呪霊) ──
+function tryReleasePhase(spirit,G){
+  if(spirit.hp<=spirit.maxHp*0.50&&(spirit._releaseTurn||0)<G.turn){
+    spirit._releaseTurn=G.turn;
+    G.pt.filter(isAlive).forEach(p=>{
+      const d=Math.round(spirit.maxHp*0.15);
+      p.hp=Math.max(0,p.hp-d);
+      blogf(`🌊 RELEASE PHASE: ${p.name} -${d} true dmg`,'dmg');
+    });
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
 // STORY MODE
 // ═══════════════════════════════════════════════════════════════
 const STORY_CHAPTERS=[
+  // ─────────────────────────────────────────────────────────────
+  // CHAPTER 1 — First Night
+  // ─────────────────────────────────────────────────────────────
   {
-    num:1, title:'New Arrivals',
-    desc:'Five transfer students arrive at CMAC. The Back Mountain Brotherhood is not pleased.',
-    available:true,
+    num:1,title:'First Night',
+    desc:'Opening week. Five strangers expelled from the dorms on the same night discover the back courtyard — and each other.',
+    spiritId:'noise_spirit',
+    playerTeam:['zane','harrison','vincent','feliz'],
     dialogue:[
-      {speaker:'NARRATOR',text:'Chiang Mai, Thailand. Third semester. The academy courtyard is quiet — until a private jet bearing French insignia lands on the sports field.',bg:'CMAC COURTYARD'},
-      {speaker:'MADAME',text:'This is the academy? I was told there would be a proper welcome ceremony. Instead there is... basketball? C\'est quoi ce bordel.'},
-      {speaker:'HARRISON',text:'*eating instant noodles* You parked your jet on our court. Our actual basketball court.'},
-      {speaker:'MADAME',text:'It will be moved once my luggage is unloaded. Eight Louis Vuitton cursed-tool cases. The staff will handle it.'},
-      {speaker:'HARRISON',text:'"The staff." There\'s no staff. This is the Back Mountain, not Monaco.'},
-      {speaker:'ZANE',text:'*appearing from treeline* Harrison. Be polite. *to Madame* You must be the French transfer. I\'m Zane. That\'s Harrison. He doesn\'t normally eat other people\'s food.'},
-      {speaker:'HARRISON',text:'I absolutely do.'},
-      {speaker:'NARRATOR',text:'Meanwhile, elsewhere on campus — a paratrooper has landed on the library roof.'},
-      {speaker:'CHOGUN',text:'*checking Nikes* Soft landing. Airs held up. Academy looks... functional. I\'ve operated in worse conditions.'},
-      {speaker:'LJ',text:'*from below* Why are you on the library?! There are stairs!'},
-      {speaker:'CHOGUN',text:'Stairs don\'t test your jump technique. Also — nice Dunks. Those real?'},
-      {speaker:'LJ',text:'...Yes?'},
-      {speaker:'CHOGUN',text:'Good. I might need to know that later.'},
-      {speaker:'NARRATOR',text:'The arrival of five high-grade sorcerers in one location begins to warp the local cursed energy field. Director Zhang Wei calls an emergency assembly.'},
-      {speaker:'DIRECTOR ZHANG',text:'Effective immediately, all new transfer students will complete a combat evaluation. This is non-negotiable. The energy convergence requires assessment.'},
-      {speaker:'WOOJOO',text:'*raising hand from the back, visibly taller than everyone* Evaluation against who?'},
-      {speaker:'DIRECTOR ZHANG',text:'Each other. Back Mountain team versus the transfers. Tomorrow. Training ground B.'},
-      {speaker:'HARRISON',text:'*cracking knuckles* Finally. I was getting bored.'},
-      {speaker:'MADAME',text:'How charming. Try not to break anything too expensive.'},
+      {speaker:'NARRATOR',text:'CMAC Sorcery Academy. Chiang Mai. Opening week of semester. The back courtyard behind Training Hall B is quiet at 2am — until it isn\'t.',bg:'CMAC 後山 BACK COURTYARD — 2AM'},
+      {speaker:'ZANE',text:'*setting down a pot of instant noodles* You were expelled from dorms on day three?'},
+      {speaker:'HARRISON',text:'Noise complaints. The sound of me existing is apparently disruptive at 3am. You?'},
+      {speaker:'ZANE',text:'I used the common room bookshelf as a Memory Projection surface. It took out six rooms of cursed energy for twelve hours.'},
+      {speaker:'VINCENT',text:'*flexing arm* I may have bent the elevator door. In my defence it was very slow.'},
+      {speaker:'LUCAS',text:'Academic misconduct. I cursed the exam sheet so every wrong answer redirected the pain back to whoever wrote the question. Professor failed his own test.'},
+      {speaker:'FELIZ',text:'*sitting at the edge of the courtyard* ...I was just here already. I didn\'t know you were going to be here too.'},
+      {speaker:'ZANE',text:'*without looking up* There are extra bowls.'},
+      {speaker:'FELIZ',text:'*a long pause* ...thanks.'},
+      {speaker:'NARRATOR',text:'At 2:17am, a low-frequency vibration begins to pulse through the courtyard walls. Six hundred students failing their first assessments has crystallised into something alive.',bg:'CMAC 後山 BACK COURTYARD — 2AM'},
+      {speaker:'HARRISON',text:'...you feel that?'},
+      {speaker:'ZANE',text:'Grade 2. Noise Spirit — born from exam anxiety in the building walls. It\'s going to disrupt our stamina. *stands* Four of us. Now.'},
+      {speaker:'NOISE SPIRIT — 嘈雜靈',text:'*screaming from the walls* MORE PRESSURE... MORE FAILURE... YOU CANNOT SILENCE THE NOISE—'},
+      {speaker:'FELIZ',text:'*quietly, standing up* Hey. I\'m here.'},
     ],
-    playerTeam:['zane','harrison','lucas','jeff'],
-    enemyTeam:['madame','chogun','woojoo','cici'],
     winDialogue:[
-      {speaker:'NARRATOR',text:'The dust settles on Training Ground B. The verdict: inconclusive.'},
-      {speaker:'WOOJOO',text:'We lost. I lost. To someone who carries bread as a weapon.'},
-      {speaker:'MADAME',text:'Baguette is a sacred cursed tool. And technically, you lost to the bread. Not to me.'},
-      {speaker:'HARRISON',text:'*to Zane quietly* I think I like them.'},
-      {speaker:'ZANE',text:'I know. I could tell when you tried to steal her technique.'},
-      {speaker:'HARRISON',text:'I absolutely did not.'},
-      {speaker:'ZANE',text:'Your left hand was glowing.'},
+      {speaker:'NARRATOR',text:'The Noise Spirit dissolves. The courtyard tiles still faintly glow from the fight.',bg:'CMAC 後山 BACK COURTYARD — 2AM'},
+      {speaker:'HARRISON',text:'*catching his breath* Feliz — did you just —'},
+      {speaker:'FELIZ',text:'*staring at his hands* It activated. My technique. I wasn\'t even... I wasn\'t performing for anyone. I just — didn\'t want it to hurt you.'},
+      {speaker:'ZANE',text:'That\'s exactly what happened. The resonance came from us being here. Not from an audience watching.'},
+      {speaker:'FELIZ',text:'*quiet* ...I\'ve always needed someone watching. I didn\'t know it could work when you just — exist next to people.'},
+      {speaker:'HARRISON',text:'*sitting back down with his noodles* We were watching, man. We always are. That\'s the point.'},
+      {speaker:'NARRATOR',text:'No one goes back inside that night. No one mentions the dorm. At some point someone gets more noodles. This is the beginning.'},
     ],
     loseDialogue:[
-      {speaker:'NARRATOR',text:'The Back Mountain team is overwhelmed. The transfers are stronger than expected.'},
-      {speaker:'HARRISON',text:'*flat on the ground* Okay. You\'re good.'},
-      {speaker:'CHOGUN',text:'*landing cleanly from above* Your teammate with the math thing — Cici? — she blocked my bike with a formula. A formula.'},
-      {speaker:'CICI',text:'Kinetic decomposition. It\'s just physics.'},
-      {speaker:'CHOGUN',text:'I don\'t know what that means but I respect it.'},
+      {speaker:'NARRATOR',text:'The Noise Spirit\'s frequency overwhelms the group. Too much, too soon.',},
+      {speaker:'NOISE SPIRIT — 嘈雜靈',text:'...LOUDER... ALWAYS LOUDER...'},
+      {speaker:'ZANE',text:'*pulling the group back* Not like this. We regroup.'},
+      {speaker:'FELIZ',text:'*quietly* Let me try something different. I have an idea.'},
     ]
   },
+
+  // ─────────────────────────────────────────────────────────────
+  // CHAPTER 2 — The Baker Arrives
+  // ─────────────────────────────────────────────────────────────
   {
-    num:2, title:'The Fries Incident',
-    desc:'A special-grade cursed spirit is consuming students\' cursed memories. It feeds on regret.',
-    available:false,
+    num:2,title:'The Baker Arrives',
+    desc:'Madame transfers in from Lyon with opinions about instant noodles. Harrison takes this personally. A Gluttony Wraith takes it as an invitation.',
+    spiritId:'gluttony_wraith',
+    playerTeam:['zane','harrison','madame','jeff'],
     dialogue:[
-      {speaker:'NARRATOR',text:'One week after the transfer evaluation. The academy infirmary begins filling with students suffering from "memory drain" — waking up unable to recall their cursed techniques.',bg:'CMAC INFIRMARY'},
-      {speaker:'ICHIGATSU',text:'The pattern is mathematical. Fifteen incidents in seven days. The spirit is selecting targets based on cursed energy density — it prefers high-output sorcerers.'},
-      {speaker:'LIN ZHAOFU',text:'I\'ve seen this timeline before. *adjusts coat* Three weeks from now, the drain affects Grade 1 sorcerers. We need to act before the window closes.'},
-      {speaker:'LUCAS',text:'How do you know what happens three weeks from now?'},
-      {speaker:'LIN ZHAOFU',text:'I\'ve lived it.'},
-      {speaker:'LUCAS',text:'That\'s unsettling.'},
-      {speaker:'MADAME',text:'The spirit is consuming regret. Every student who was drained had one thing in common — unresolved emotional wounds. In Lyon we call this a grudge parasite.'},
-      {speaker:'JEFF',text:'It eats bad feelings? *quietly* ...Is that why I haven\'t been affected?'},
-      {speaker:'ZANE',text:'*softly* Jeff.'},
-      {speaker:'JEFF',text:'I\'m fine. Anyway. How do we find it?'},
-      {speaker:'MADAME',text:'We bait it. Someone with significant emotional unresolved material.'},
-      {speaker:'HARRISON',text:'...Everyone looking at me or is that my imagination.'},
-      {speaker:'NARRATOR',text:'The spirit, "Sorrow Devourer," manifests in the Back Mountain in the form of a massive humanoid made of condensed negative emotions. It has already consumed three second-year students.',},
-      {speaker:'SORROW DEVOURER',text:'*speaking in fractured voices* ...so much regret here... the thief who never belonged... the one who knows everything but feels nothing... give it to me...'},
-      {speaker:'HARRISON',text:'Yeah that\'s mine. Hands off.'},
+      {speaker:'NARRATOR',text:'Second week. CMAC canteen. A new transfer from Lyon has discovered the noodle situation.',bg:'CMAC CANTEEN'},
+      {speaker:'MADAME',text:'*staring at Harrison\'s bowl* What is that.'},
+      {speaker:'HARRISON',text:'Noodles.'},
+      {speaker:'MADAME',text:'That is not noodles. That is flavoured warm water with infrastructure. There is a licensed training kitchen on the third floor and you are eating — *this*.'},
+      {speaker:'HARRISON',text:'The training kitchen has a sign-in sheet and a mandatory safety briefing. This has neither.'},
+      {speaker:'MADAME',text:'I will be in the training kitchen. Making real food. You are all welcome to join, if you can manage thirty minutes without an explosion.'},
+      {speaker:'HARRISON',text:'I\'m not signing anything.'},
+      {speaker:'ZANE',text:'*quietly to Madame* He ate four of your macarons last week.'},
+      {speaker:'HARRISON',text:'*immediately* Those were confiscated for research purposes.'},
+      {speaker:'MADAME',text:'*something shifts slightly* ...You tried them?'},
+      {speaker:'HARRISON',text:'They were left unattended. With my face near them.'},
+      {speaker:'NARRATOR',text:'The canteen temperature drops twelve degrees. Beneath the old serving counter, something born from sixty years of uneaten, unappreciated, resented food begins to wake up.',bg:'CMAC CANTEEN — LIGHTS FLICKERING'},
+      {speaker:'JEFF',text:'*peering under the counter* Uh. There is something very old and very hungry under here.'},
+      {speaker:'GLUTTONY WRAITH — 饕餮の残影',text:'*manifesting from layers of food-grief* ...sixty years of resentment... every meal that was rejected, unloved, consumed without gratitude — I will TAKE what was never given—'},
+      {speaker:'MADAME',text:'*rolling up her sleeve* You picked the wrong kitchen.'},
+      {speaker:'HARRISON',text:'...okay, I respect this. Let\'s go.'},
     ],
-    playerTeam:['harrison','madame','ichigatsu','linzhaofu'],
-    enemyTeam:['jeff','jake','feliz','trex'],
-    enemyNote:'The Sorrow Devourer has possessed four students. Free them by defeating the corrupted team.',
     winDialogue:[
-      {speaker:'NARRATOR',text:'The Sorrow Devourer dissolves as the last corrupted student is freed. Madame seals its remnant energy into a croissant cursed tool.'},
-      {speaker:'MADAME',text:'And now it is contained. Though I must say — Harrison, the spirit was particularly attracted to you. Fascinating.'},
-      {speaker:'HARRISON',text:'It tried to eat my memories of being betrayed. I stole them back.'},
-      {speaker:'ICHIGATSU',text:'You stole your own memories from a cursed spirit. That is the most Harrison sentence I have ever heard.'},
-      {speaker:'HARRISON',text:'Thank you.'},
-      {speaker:'LIN ZHAOFU',text:'*checking notes* This matches the timeline. Good. We have three weeks until the next convergence event.'},
-      {speaker:'ZANE',text:'What happens in three weeks?'},
-      {speaker:'LIN ZHAOFU',text:'Something worse. I\'m still working on how to stop it.'},
+      {speaker:'NARRATOR',text:'The Gluttony Wraith dissolves. Madame seals its remnant in a croissant cursed tool and pockets it without ceremony.',bg:'CMAC CANTEEN'},
+      {speaker:'JEFF',text:'*looking at the croissant* You put it in a pastry.'},
+      {speaker:'MADAME',text:'The containment was natural. It was already food-adjacent. *turning to Harrison* Next week — rillettes de Tours. Training kitchen. Five o\'clock.'},
+      {speaker:'HARRISON',text:'I\'ll think about it.'},
+      {speaker:'MADAME',text:'You ate six of my macarons.'},
+      {speaker:'HARRISON',text:'*beat* I\'ll be there at five.'},
+      {speaker:'ZANE',text:'*very quietly to Jeff* Do not tell anyone he agreed immediately.'},
+      {speaker:'JEFF',text:'*already on his phone* Absolutely. Noted. Definitely noted.'},
     ],
     loseDialogue:[
-      {speaker:'NARRATOR',text:'The Sorrow Devourer grows stronger, consuming the released negative energy from the defeat.',},
-      {speaker:'SORROW DEVOURER',text:'...more... there is always more regret...'},
-      {speaker:'LIN ZHAOFU',text:'I\'ve seen worse outcomes. Reset.'},
-      {speaker:'NARRATOR',text:'Lin Zhaofu\'s spacetime reversal activates — the team wakes up one hour earlier, memories of the failed attempt intact.'},
-      {speaker:'HARRISON',text:'*gasping awake* That was NOT a dream.'},
-      {speaker:'LIN ZHAOFU',text:'Correct. We try again. This time Harrison — don\'t let it get close to your left flank.'},
+      {speaker:'NARRATOR',text:'The Gluttony Wraith swells, feeding on the released energy.',},
+      {speaker:'GLUTTONY WRAITH — 饕餮の残影',text:'...the resentment is endless... feeds me...'},
+      {speaker:'MADAME',text:'*sharply* Harrison. Thirty seconds of actual coordination. Can you manage?'},
+      {speaker:'HARRISON',text:'*getting up* Yeah. I can manage.'},
     ]
   },
+
+  // ─────────────────────────────────────────────────────────────
+  // CHAPTER 3 — Tower and the Underground
+  // ─────────────────────────────────────────────────────────────
   {
-    num:3, title:'Convergence',
-    desc:'Lin Zhaofu\'s prediction comes true. All seventeen sorcerers must face what\'s coming together.',
-    available:false,
+    num:3,title:'Tower and the Underground',
+    desc:'Woojoo arrives from Seoul. Vincent has opinions. Jeff has candy. Cici has data. The courtyard fence has a bad day.',
+    spiritId:'echo_competition',
+    playerTeam:['vincent','woojoo','jeff','cici'],
     dialogue:[
-      {speaker:'NARRATOR',text:'Three weeks later. The convergence event Lin Zhaofu predicted begins at 3:47 AM — a fracture in the boundary between cursed spirit realm and the physical world opens directly beneath CMAC.',bg:'BACK MOUNTAIN — NIGHT'},
-      {speaker:'LIN ZHAOFU',text:'I\'ve run this scenario forty-seven times. There is only one configuration that works. All of us. Together.'},
-      {speaker:'ICHIGATSU',text:'I have calculated the optimal formation. It requires perfect coordination. Is everyone capable of that?'},
-      {speaker:'HARRISON',text:'No.'},
-      {speaker:'ICHIGATSU',text:'...I will factor in a margin for Harrison.'},
-      {speaker:'WOOJOO',text:'What are we facing?'},
-      {speaker:'LIN ZHAOFU',text:'A Boundary-class spirit. It exists in the space between moments. Standard attacks won\'t work on it unless you\'ve experienced genuine loss.'},
-      {speaker:'JEFF',text:'*quietly* ...I think I qualify.'},
-      {speaker:'CHARLOTTE',text:'*to Zane* You\'re projecting memories of everyone here. I can feel it.'},
-      {speaker:'ZANE',text:'I\'ve been memorizing all of you since the semester started. Every technique. Every hesitation. Every moment worth keeping. I think... this is why.'},
-      {speaker:'CHARLOTTE',text:'...That\'s the most terrifying thing you\'ve ever said to me.'},
-      {speaker:'ZANE',text:'Also the most honest.'},
-      {speaker:'NARRATOR',text:'The Boundary-class spirit manifests. It is enormous — a walking archive of every cursed memory the Back Mountain has ever generated. It knows all their weaknesses. It knows all their pain.'},
-      {speaker:'BOUNDARY SPIRIT',text:'*in all their voices at once* I have been here since the first day. I am made of everything you tried to forget.'},
-      {speaker:'MADAME',text:'*straightening jacket* Then you\'ve already lost. We haven\'t forgotten any of it.'},
-      {speaker:'CHOGUN',text:'*from above, mid-skydive* I\'m going to land on it. Someone calculate the trajectory.'},
-      {speaker:'ICHIGATSU',text:'I already did. Left flank, forty-three degrees. Don\'t miss.'},
-      {speaker:'CHOGUN',text:'I never miss.'},
+      {speaker:'NARRATOR',text:'End of week three. The back courtyard. The new arrival from Seoul has created a problem by existing.',bg:'CMAC 後山 BACK COURTYARD — AFTERNOON'},
+      {speaker:'VINCENT',text:'*looking up at Woojoo* You\'re 2.3 metres.'},
+      {speaker:'WOOJOO',text:'2.31. Since you\'re measuring.'},
+      {speaker:'VINCENT',text:'I have thirty-seven wins in Bangkok\'s underground circuit.'},
+      {speaker:'WOOJOO',text:'I have zero wins in Bangkok\'s underground circuit. I have also never been to Bangkok\'s underground circuit. I do have a thirty-centimetre height advantage and a documented psychological pressure field. *pause* Nice to meet you.'},
+      {speaker:'CICI',text:'*opening a notebook* If you spar in this sector I need everyone to stay in grid B. The fence corner has structural vulnerability and a cursed energy exchange there will release—'},
+      {speaker:'VINCENT',text:'Starting now.'},
+      {speaker:'JEFF',text:'*settling onto a bench, pulling out Skittles* Cool.'},
+      {speaker:'CICI',text:'—approximately twenty-seven years of accumulated rivalry energy. Yes. *closes notebook* There it is.'},
+      {speaker:'NARRATOR',text:'A section of the courtyard fence crumbles. The ground cracks. The Echo of Competition tears through the concrete and takes form from the courtyard\'s own accumulated energy.',bg:'CMAC 後山 BACK COURTYARD — BROKEN FENCE'},
+      {speaker:'ECHO OF COMPETITION — 競争の残響',text:'WIN. DEFEAT. WIN. DEFEAT. THIS IS ALL THAT HAS EVER MATTERED—'},
+      {speaker:'CICI',text:'The spirit\'s reflection pattern amplifies by approximately fifteen percent per exchange. Do not hit it the same way twice.'},
+      {speaker:'JEFF',text:'*to Woojoo, offering a handful of Skittles* Hey. Here.'},
+      {speaker:'WOOJOO',text:'*blinking* ...why.'},
+      {speaker:'JEFF',text:'Because you\'re about to fight something literally made of competition trauma and you should go in with something sweet in your system. Small kindnesses are load-bearing. Trust me.'},
     ],
-    playerTeam:['zane','madame','harrison','woojoo'],
-    enemyTeam:['linzhaofu','ichigatsu','chogun','michelle'],
-    enemyNote:'The Boundary Spirit has duplicated your comrades as illusions. Defeat the illusions to break its hold.',
     winDialogue:[
-      {speaker:'NARRATOR',text:'The Boundary Spirit fractures as its final illusion is broken. For a moment, the Back Mountain glows with released cursed energy — seventeen different colors, one for each sorcerer present.',},
-      {speaker:'BOUNDARY SPIRIT',text:'*dissolving* ...you were supposed to... be afraid of what you remember...'},
-      {speaker:'JEFF',text:'*wiping eyes* Yeah well. We are. We just don\'t let it stop us.'},
-      {speaker:'HARRISON',text:'*helping the boundary spirit didn\'t expect that* "Afraid." Sure. Also still annoyed about my porch.'},
-      {speaker:'LIN ZHAOFU',text:'*quietly* This was the forty-seventh scenario. The only one where everyone makes it. *beat* I wanted to see it happen.'},
-      {speaker:'ZANE',text:'Did you know it would work?'},
-      {speaker:'LIN ZHAOFU',text:'I hoped. For the first time in forty-seven attempts... I hoped.'},
-      {speaker:'NARRATOR',text:'The convergence closes. The academy still stands. Seventeen sorcerers — too dangerous, too unruly, or too strange for anywhere else — return to their dormitories as dawn breaks over Chiang Mai.'},
-      {speaker:'MADAME',text:'...I suppose this is home now.'},
-      {speaker:'WOOJOO',text:'Yeah.'},
-      {speaker:'NARRATOR',text:'SEASON 1 COMPLETE. The Back Mountain remains.'},
+      {speaker:'NARRATOR',text:'The Echo of Competition shatters as its reflected energy overwhelms its own structure.',bg:'CMAC 後山 BACK COURTYARD'},
+      {speaker:'CICI',text:'*opening notebook again* The pattern destabilised at sixty-three percent. Vincent\'s final angle was seventeen degrees off optimal but within tolerance.'},
+      {speaker:'VINCENT',text:'I hit exactly where I meant to hit.'},
+      {speaker:'CICI',text:'You were lucky and correct. I\'ll note both.'},
+      {speaker:'WOOJOO',text:'*to Vincent* That\'s not settled.'},
+      {speaker:'VINCENT',text:'Obviously. Tuesday?'},
+      {speaker:'WOOJOO',text:'Tuesday.'},
+      {speaker:'JEFF',text:'*distributing post-battle Skittles to everyone* Here. World is held up by small kindnesses. I believe this deeply. *specifically to Woojoo* How\'s the leg holding up?'},
+      {speaker:'WOOJOO',text:'*a pause that lasts slightly too long* ...Fine. Thank you.'},
     ],
     loseDialogue:[
-      {speaker:'NARRATOR',text:'The Boundary Spirit overwhelms the team. Lin Zhaofu\'s reversal activates — but this time, he looks exhausted.',},
-      {speaker:'LIN ZHAOFU',text:'*pale* That was attempt forty-six. One more. We have one more.'},
-      {speaker:'ICHIGATSU',text:'*quietly* You can\'t keep doing this.'},
-      {speaker:'LIN ZHAOFU',text:'I know. So let\'s not have a forty-eighth.'},
+      {speaker:'NARRATOR',text:'The Echo of Competition grows stronger with each failed attempt.',},
+      {speaker:'CICI',text:'The reflection rate increased. We\'re reinforcing it. New approach — stop repeating the same angles.'},
+      {speaker:'JEFF',text:'More Skittles?'},
+      {speaker:'CICI',text:'Different strategy. But — yes. Also more Skittles.'},
     ]
   },
+
+  // ─────────────────────────────────────────────────────────────
+  // CHAPTER 4 — 826 Gigabytes
+  // ─────────────────────────────────────────────────────────────
   {
-    num:4, title:'VERSUS: THE MAIN VERSE',
-    desc:'Tokyo and Kyoto send their best. CMAC sends everyone. This was never going to be a formal exchange.',
-    available:false,
+    num:4,title:'826 Gigabytes',
+    desc:'LJ, Charlotte, and Cici discover the LCC formation. Training Hall B loses a wall. Again. Something sealed inside wakes up.',
+    spiritId:'architect_spirit',
+    playerTeam:['lj','charlotte','cici','zane'],
     dialogue:[
-      {speaker:'NARRATOR',text:'The Jujutsu Council arranges a "formal exchange session" between CMAC and Tokyo/Kyoto High. Director Zhang Wei has prepared a structured agenda. Nobody follows it.',bg:'CMAC × TOKYO HIGH'},
-      {speaker:'GOJO',text:'So this is CMAC. *looks around* I expected more blood on the walls. You must be doing something wrong.'},
-      {speaker:'HARRISON',text:'*eating from a bowl of noodles* There\'s blood on the training hall floor. We washed the walls last week.'},
-      {speaker:'GOJO',text:'A man who eats during a diplomatic exchange. *sits down* I respect this. What are you having?'},
-      {speaker:'HARRISON',text:'Instant noodles. Shrimp flavour.'},
-      {speaker:'GOJO',text:'Unacceptable. *produces a bag of imported ramen from somewhere* You should try proper food. My students eat like that and I feel personally insulted.'},
-      {speaker:'YUJI',text:'*to Harrison* He\'s not wrong, the ramen at Tokyo High is incredible. How many of these can you eat in one sitting?'},
-      {speaker:'HARRISON',text:'Eleven.'},
-      {speaker:'YUJI',text:'...Can I sit here?'},
-      {speaker:'MEGUMI',text:'*quietly, looking at the Back Mountain ridge* They live up there?'},
-      {speaker:'ZANE',text:'Some of us, yes. You can tell which ones — we\'re the ones who smell faintly of campfire and look slightly feral.'},
-      {speaker:'MEGUMI',text:'*a pause* ...That\'s not a bad way to live.'},
-      {speaker:'NOBARA',text:'*to LJ* Okay so your phone case — where did you get that? Because I need you to know I almost had that exact case and I want to know if you got it first.'},
-      {speaker:'LJ',text:'*immediately* I got it in September. You can check my camera roll. I have documentation.'},
-      {speaker:'NOBARA',text:'Why do you have documentation?'},
-      {speaker:'LJ',text:'Because I knew someone was going to challenge me on it eventually. I just didn\'t know who.'},
-      {speaker:'NOBARA',text:'*pause* Okay you\'re either my worst enemy or my best friend and I need five minutes to decide which.'},
-      {speaker:'NANAMI',text:'*to Lin Zhaofu* You\'ve done this before. Not this specifically. The — managing a timeline that others don\'t know they\'re in.'},
-      {speaker:'LIN ZHAOFU',text:'Forty-seven times.'},
-      {speaker:'NANAMI',text:'*a long, acknowledging pause* I\'m sorry.'},
-      {speaker:'LIN ZHAOFU',text:'It\'s manageable. *beat* That\'s not entirely true. But it\'s workable.'},
-      {speaker:'NANAMI',text:'Yes. That distinction matters.'},
-      {speaker:'GOJO',text:'*to Zane* Show me something interesting. I came all the way to Chiang Mai. I deserve to be impressed.'},
-      {speaker:'ZANE',text:'You want me to impress Gojo Satoru.'},
-      {speaker:'GOJO',text:'I want you to try. The trying is usually the interesting part.'},
-      {speaker:'NARRATOR',text:'Zane projects Gojo\'s own Limitless technique back at him — forty percent accuracy, imperfect geometry, held for approximately four seconds before it collapses. Four seconds is a long time for something that should be impossible.'},
-      {speaker:'GOJO',text:'*very quiet for a moment* ...Hm.'},
-      {speaker:'ZANE',text:'Forty percent. It falls apart after four seconds. I\'ve been working on it for three weeks.'},
-      {speaker:'GOJO',text:'*starts laughing* Three WEEKS? You figured out forty percent of my technique in three weeks from WATCHING? *still laughing* This is incredible. This is actually incredible. Nobody tell Nanami.'},
-      {speaker:'NARRATOR',text:'The formal exchange program is abandoned when Vincent and Yuji end up in an unsanctioned sparring match that destroys the wall of Training Hall B (which, as LJ points out, had no east wall to begin with) and most of the equipment storage shed. Both are fine. Both are delighted. Neither wins.'},
-      {speaker:'VINCENT',text:'*covered in rubble* That was good.'},
-      {speaker:'YUJI',text:'*also covered in rubble* Yeah. That was really good. Same time tomorrow?'},
-      {speaker:'VINCENT',text:'Yes.'},
-      {speaker:'NARRATOR',text:'The Tokyo/Kyoto delegation ends up on the Back Mountain as the sun goes down. Trex has produced noodles from somewhere. Gojo is sitting slightly apart from the group, eating, pretending not to find this wholesome.',bg:'BACK MOUNTAIN — SUNSET'},
-      {speaker:'YUJI',text:'*looking at the jungle* This place is amazing. It\'s like... everyone here is so —'},
-      {speaker:'HARRISON',text:'Unhinged?'},
-      {speaker:'YUJI',text:'I was going to say real. But also unhinged. But like — good unhinged.'},
-      {speaker:'ZANE',text:'*passing noodles* That\'s the most accurate description of the Back Mountain I\'ve ever heard.'},
-      {speaker:'GOJO',text:'*from his slightly-apart position, not looking at anyone* ...These noodles are fine.'},
-      {speaker:'LJ',text:'He means he\'s having a good time.'},
-      {speaker:'GOJO',text:'I said what I said.'},
+      {speaker:'NARRATOR',text:'Week five. Training Hall B. The LCC formation has not yet been named. It is about to be discovered in the most structurally expensive way possible.',bg:'CMAC TRAINING HALL B'},
+      {speaker:'LJ',text:'*mid-exercise* Cici, back me on the left flank—'},
+      {speaker:'CICI',text:'If you use Power of Betrayal at that angle while Charlotte\'s resonance is active, there will be a harmonic amplification event—'},
+      {speaker:'CHARLOTTE',text:'*already feeling it* The techniques are aligning — I can feel yours and hers and—'},
+      {speaker:'LJ',text:'IS THAT GOOD OR BAD—'},
+      {speaker:'CICI',text:'Mathematically: extraordinary. Structurally: please move away from the east wall. Now.'},
+      {speaker:'NARRATOR',text:'The east wall of Training Hall B ceases to exist. In the exposed cavity, something that has been sealed since the first stone of CMAC was laid begins to breathe.',bg:'CMAC TRAINING HALL B — EAST WALL GONE'},
+      {speaker:'LJ',text:'*looking at the rubble* I destroyed a wall.'},
+      {speaker:'ZANE',text:'*arriving at the sound of rubble* That\'s the third time this month.'},
+      {speaker:'LJ',text:'It\'s the first time THIS month. The previous two were last month. There is a distinction.'},
+      {speaker:'ARCHITECT SPIRIT — 建築師の怨霊',text:'*emerging slowly from the broken wall* ...decades... I have been in this wall since the first stone was laid... my designs were never implemented... my vision never built—'},
+      {speaker:'CHARLOTTE',text:'*to Cici and LJ* The three of us together caused this. The three of us should end it.'},
+      {speaker:'LJ',text:'Obviously. *pause, then quietly* And for the record — this technique. I will never point it at either of you. Just so you know.'},
+      {speaker:'CICI',text:'We know.'},
+      {speaker:'LJ',text:'*to the spirit* Okay. Power of Betrayal on a cursed spirit. Let\'s find out.'},
     ],
-    playerTeam:['zane','harrison','vincent','lj'],
-    enemyTeam:['gojo_s','yuji_i','megumi_f','nobara_k'],
-    enemyNote:'The formal exchange turns into a brawl. Represent CMAC. The Back Mountain is watching.',
     winDialogue:[
-      {speaker:'NARRATOR',text:'CMAC holds its ground against Tokyo High. This is, by any metric, an extraordinary result.',},
-      {speaker:'GOJO',text:'*sitting up from where he landed* Okay. Okay. That was — *pause* — you\'re all considerably better than you look.'},
-      {speaker:'HARRISON',text:'We look pretty good.'},
-      {speaker:'GOJO',text:'You look like you sleep on a mountain. The compliment stands. I\'m saying it was unexpected.'},
-      {speaker:'ZANE',text:'We\'ll take it.'},
-      {speaker:'YUJI',text:'*to Vincent, genuinely delighted despite being defeated* We are DEFINITELY doing this again.'},
-      {speaker:'VINCENT',text:'Obviously.'},
-      {speaker:'NARRATOR',text:'Gojo arranges a second exchange session before leaving. He does not tell anyone he is looking forward to it. This is fine. Everyone knows.'},
+      {speaker:'NARRATOR',text:'The Architect Spirit is sealed back into the wall — permanently this time — by a formation Cici documents as LCC: First Verified Use.',bg:'CMAC TRAINING HALL B'},
+      {speaker:'CICI',text:'The resonance held for eleven seconds. That\'s significantly above the theoretical maximum. I need to revise three equations.'},
+      {speaker:'LJ',text:'You\'re welcome.'},
+      {speaker:'CICI',text:'Thank you. I genuinely mean that.'},
+      {speaker:'ZANE',text:'*quietly to Charlotte, handing her tea* You gave everything to that last push. You\'re not healing yourself again, are you.'},
+      {speaker:'CHARLOTTE',text:'*taking the tea* ...the technique doesn\'t extend to me. It never has.'},
+      {speaker:'ZANE',text:'I know. That\'s why I noticed.'},
+      {speaker:'LJ',text:'*already on her phone* Director Zhang is going to invoice us for the wall. I have seventeen pre-written responses. This is why I have 826 gigabytes.'},
     ],
     loseDialogue:[
-      {speaker:'NARRATOR',text:'Tokyo High wins on points. Barely. The margin is smaller than anyone expected.',},
-      {speaker:'GOJO',text:'Good fight. Better than the last three schools we visited combined.'},
-      {speaker:'HARRISON',text:'*from the floor* We\'ll win the rematch.'},
-      {speaker:'GOJO',text:'I\'m counting on it. *to Zane* Work on that forty percent. I want to see sixty by next time.'},
-      {speaker:'ZANE',text:'...I\'ll see what I can do.'},
-      {speaker:'NARRATOR',text:'A rematch is scheduled. The Back Mountain starts training harder. Not out of pride. Just because it would be fun.'},
+      {speaker:'NARRATOR',text:'The Architect Spirit\'s reconstruction catches the team off guard.',},
+      {speaker:'ARCHITECT SPIRIT — 建築師の怨霊',text:'You cannot destroy what has been building for decades—'},
+      {speaker:'LJ',text:'Cici. Timing was off?'},
+      {speaker:'CICI',text:'0.3 seconds. I\'ll call the count. Try again.'},
+    ]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // CHAPTER 5 — Middleman's Market
+  // ─────────────────────────────────────────────────────────────
+  {
+    num:5,title:"Middleman's Market",
+    desc:'Trex sets up shop in the courtyard. Michelle plays the odds. Ichigatsu calculates the collapse window. A Debt Collector arrives with overdue invoices.',
+    spiritId:'debt_collector',
+    playerTeam:['trex','michelle','ichigatsu','harrison'],
+    dialogue:[
+      {speaker:'NARRATOR',text:'Week six. The back courtyard has developed an informal economy. Trex is at the centre of it.',bg:'CMAC 後山 BACK COURTYARD — DAY'},
+      {speaker:'TREX',text:'*arranging a folding table* Cursed tools at cost. Information at market rate. Rare ingredients, negotiable. This is a community service operation.'},
+      {speaker:'MICHELLE',text:'*examining an item* This ring is priced forty percent below market value.'},
+      {speaker:'TREX',text:'Loss leader. The noodle sessions are better when people have the right ingredients.'},
+      {speaker:'MICHELLE',text:'That\'s called friendship. You\'re funding friendship at a forty percent loss.'},
+      {speaker:'TREX',text:'I\'m making a strategic investment in community dynamics. Harrison calls it friendship. I\'m not correcting him.'},
+      {speaker:'ICHIGATSU',text:'*checking his watch without looking up* Three days.'},
+      {speaker:'TREX',text:'Until what.'},
+      {speaker:'ICHIGATSU',text:'Until this informal market destabilises under supply pressure and the pricing logic collapses. I\'ve run the numbers. Three days, approximately four hours.'},
+      {speaker:'TREX',text:'*completely unimpressed* I\'ll adjust.'},
+      {speaker:'FELIZ',text:'*filming from a corner, very quietly* Don\'t mind me. This is content.'},
+      {speaker:'NARRATOR',text:'The market collapses early — not because of supply pressure, but because a Grade 1 cursed spirit from the old market district near CMAC tears through the courtyard\'s ward. It has outstanding invoices.',bg:'CMAC 後山 BACK COURTYARD — NIGHT'},
+      {speaker:'DEBT COLLECTOR — 取立て鬼',text:'OVERDUE. ALL OF YOU. THE DEBT OF OCCUPYING THIS SPACE WITHOUT PAYMENT IS OVERDUE—'},
+      {speaker:'TREX',text:'*stepping forward calmly* Hold on. I\'m a reasonable businessman. Let\'s discuss terms.'},
+      {speaker:'DEBT COLLECTOR — 取立て鬼',text:'*draining stamina from Trex immediately* THERE ARE NO TERMS.'},
+      {speaker:'TREX',text:'*grimacing* ...noted. Different approach.'},
+    ],
+    winDialogue:[
+      {speaker:'NARRATOR',text:'The Debt Collector dissolves as Trex\'s Middleman Cut reverses its own debt mechanic against it.',bg:'CMAC 後山 BACK COURTYARD'},
+      {speaker:'TREX',text:'*exhaling slowly* I want it on record that I attempted a diplomatic resolution first.'},
+      {speaker:'MICHELLE',text:'Recorded.'},
+      {speaker:'ICHIGATSU',text:'The spirit\'s extraction probability was 73% success per turn after turn three. You lasted until turn six. Statistically improbable outcome.'},
+      {speaker:'MICHELLE',text:'Probability isn\'t certainty.'},
+      {speaker:'ICHIGATSU',text:'No. That\'s precisely what makes it interesting.'},
+      {speaker:'FELIZ',text:'*lowering his camera slowly* ...two million views. In four hours.'},
+      {speaker:'HARRISON',text:'*sitting down with noodles* Who\'s paying for those?'},
+      {speaker:'TREX',text:'*already resetting the folding table* Consider it covered. Strategic community investment. The noodles tonight are on me.'},
+    ],
+    loseDialogue:[
+      {speaker:'NARRATOR',text:'The Debt Collector extracts too much. The team falters under the stamina drain.',},
+      {speaker:'ICHIGATSU',text:'This was the lower-probability outcome. I want that formally acknowledged.'},
+      {speaker:'TREX',text:'Acknowledged. *standing up* Let\'s adjust the approach. I know what I did wrong.'},
+    ]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // CHAPTER 6 — Chogun Drops In
+  // ─────────────────────────────────────────────────────────────
+  {
+    num:6,title:'Chogun Drops In',
+    desc:'Chogun arrives vertically. Lin Zhaofu was already there — apparently for three weeks. The Vagrant has been watching Chiang Mai for a century.',
+    spiritId:'the_vagrant',
+    playerTeam:['chogun','linzhaofu','feliz','zane'],
+    dialogue:[
+      {speaker:'NARRATOR',text:'Week eight. 2am noodle session. The usual faces. And then a parachute.',bg:'CMAC 後山 BACK COURTYARD — 2AM'},
+      {speaker:'CHOGUN',text:'*landing from directly above with a clean fold* Evening. *looks at everyone\'s footwear in turn* Legit. Legit. Those are fake — we\'ll talk — legit. *sits down* These noodles available?'},
+      {speaker:'FELIZ',text:'*already holding out a bowl* Yeah. Here.'},
+      {speaker:'CHOGUN',text:'*taking it without question* Appreciate it.'},
+      {speaker:'HARRISON',text:'You just — dropped from altitude. Into the noodle circle.'},
+      {speaker:'CHOGUN',text:'I was in the area.'},
+      {speaker:'ZANE',text:'*turning to Lin Zhaofu, who is already sitting* How long have you been here?'},
+      {speaker:'LIN ZHAOFU',text:'Three weeks.'},
+      {speaker:'ZANE',text:'Three weeks. We\'ve been having 2am noodles every night for three weeks.'},
+      {speaker:'LIN ZHAOFU',text:'Yes. You make good noodles. *slight pause* Also in two of the timelines where I didn\'t sit here, things went worse. So.'},
+      {speaker:'NARRATOR',text:'The temperature drops. Something that has been drifting through Chiang Mai\'s old city since before the academy existed — something that has absorbed the cursed energy of every sorcerer who ever passed through — has finally found a place worth stopping.',bg:'CMAC 後山 BACK COURTYARD — 2AM'},
+      {speaker:'THE VAGRANT — 流浪者の呪霊',text:'*manifesting slowly from old city air and accumulated cursed residue* ...a hundred years... so many sorcerers pass through this city... and here, finally, something worth absorbing...'},
+      {speaker:'LIN ZHAOFU',text:'*quietly, not moving* I\'ve seen this fight before. *to Chogun* Left flank. *to Feliz* Stay visible. It targets what it can\'t see.'},
+      {speaker:'CHOGUN',text:'*studying the spirit\'s lower half* It doesn\'t have feet. *genuinely interested* I find this philosophically interesting. What does it stand on?'},
+      {speaker:'ZANE',text:'*standing* Nothing. It floats. Which means we can\'t read its movement by its stance. Stay adaptive.'},
+    ],
+    winDialogue:[
+      {speaker:'NARRATOR',text:'The Vagrant dissolves into dispersed cursed residue, a hundred years of wandering finally ended.',bg:'CMAC 後山 BACK COURTYARD — 2AM'},
+      {speaker:'CHOGUN',text:'*sitting back down, picking up his noodle bowl* Still thinking about the feet situation. Philosophically, if you have no ground contact, do you have any ground to stand on?'},
+      {speaker:'FELIZ',text:'*quietly* I think you just described half this group.'},
+      {speaker:'CHOGUN',text:'*pause, then a small nod* Yeah. Maybe.'},
+      {speaker:'LIN ZHAOFU',text:'*returning to his seat, speaking quietly* In the timelines where someone didn\'t hand Chogun noodles on arrival, this fight lasted forty minutes longer. *to Feliz* Thank you.'},
+      {speaker:'FELIZ',text:'*blinks* I just... handed someone noodles.'},
+      {speaker:'LIN ZHAOFU',text:'Yes. That\'s exactly what I mean.'},
+      {speaker:'ZANE',text:'*passing bowls* Nobody goes back inside tonight. I\'ll make more.'},
+    ],
+    loseDialogue:[
+      {speaker:'NARRATOR',text:'The Vagrant\'s accumulated power overwhelms the group — a century of absorbed cursed energy is too much.',},
+      {speaker:'THE VAGRANT — 流浪者の呪霊',text:'...so much energy here... I will take all of it...'},
+      {speaker:'LIN ZHAOFU',text:'*steady* I\'ve seen this outcome. There is a counter. We missed the window — reset.'},
+      {speaker:'CHOGUN',text:'*getting up* Different approach. What window?'},
+      {speaker:'LIN ZHAOFU',text:'Phase transition at fifty percent. We need to push through fast. Let\'s go.'},
+    ]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // CHAPTER 7 — Season Finale: The Weight of 後山
+  // ─────────────────────────────────────────────────────────────
+  {
+    num:7,title:'Season Finale: The Weight of 後山',
+    desc:'Something beneath the back courtyard has been feeding for decades. Everyone is here. This is the most dangerous thing any of them have faced.',
+    spiritId:'the_accumulation',
+    playerTeam:['zane','harrison','linzhaofu','feliz'],
+    dialogue:[
+      {speaker:'NARRATOR',text:'End of semester. The entire CMAC roster — everyone who has been to the back courtyard, eaten noodles at 2am, fought side by side — gathers as the ground beneath 後山 begins to crack.',bg:'CMAC 後山 BACK COURTYARD — END OF SEMESTER'},
+      {speaker:'LIN ZHAOFU',text:'I\'ve been calculating this event across forty-seven timelines. It has always been here, beneath the courtyard. Feeding.'},
+      {speaker:'ICHIGATSU',text:'Feeding on what, precisely.'},
+      {speaker:'LIN ZHAOFU',text:'Everything. Every fight. Every argument. Every bond. Every emotion generated in this building and its courtyard since the first day.'},
+      {speaker:'HARRISON',text:'...so it\'s been eating us.'},
+      {speaker:'LIN ZHAOFU',text:'Not consuming. Accumulating. There is a difference. *pause* We made it stronger by being here. And we are the only ones who can end it.'},
+      {speaker:'ZANE',text:'*scanning the group* All of us.'},
+      {speaker:'MADAME',text:'*adjusting her jacket* Obviously.'},
+      {speaker:'WOOJOO',text:'We\'ve fought together before. We know how the other person moves.'},
+      {speaker:'VINCENT',text:'Good. Because I\'m not holding back.'},
+      {speaker:'TREX',text:'*already calculating* I\'ve already costed the strategy. We\'re good.'},
+      {speaker:'MICHELLE',text:'The probability of this working improves significantly if everyone stops talking and moves.'},
+      {speaker:'CICI',text:'Formation. Now. I have the angles.'},
+      {speaker:'LJ',text:'*cracking her neck* I have 826 gigabytes of cursed material and I have been waiting all semester to use the good stuff.'},
+      {speaker:'CHARLOTTE',text:'*to Zane* I can amplify everything you\'ve stored. Every technique you\'ve memorised. Are you ready?'},
+      {speaker:'ZANE',text:'I\'ve been memorising everyone here since the first week. Every technique. Every hesitation. Every moment that mattered. *quiet* I think this is exactly what all of it was for.'},
+      {speaker:'JEFF',text:'*distributing Skittles to everyone around him with quiet focus* Here. All of you. World is held up by small kindnesses. I need you all to know I believe that.'},
+      {speaker:'CHOGUN',text:'*from above, mid-descent* Coming in. *checks the spirit\'s form as he lands* No footwear. Again. This keeps happening and I remain philosophically troubled.'},
+      {speaker:'FELIZ',text:'*standing with the group, not at the edge of it* I\'m here. I\'m actually here.'},
+      {speaker:'NARRATOR',text:'The ground beneath the courtyard opens. The Accumulation rises — fed on every fight, every bond, every 2am conversation that ever happened here. It knows all of them.',bg:'CMAC 後山 BACK COURTYARD — GROUND CRACKING'},
+      {speaker:'THE ACCUMULATION — 蓄積の呪霊',text:'*in layered voices, speaking in everyone\'s tone at once* I know all of you. I am made of all of you. Everything you have ever been in this place — it is mine now.'},
+      {speaker:'HARRISON',text:'*stepping forward* Then you know we don\'t go down easy.'},
+      {speaker:'THE ACCUMULATION — 蓄積の呪霊',text:'I know exactly how hard you go down. I have been watching.'},
+      {speaker:'LIN ZHAOFU',text:'*quietly* In forty-six previous attempts, this is where the first one falls. *looks at everyone* In this one, nobody falls first. We go together.'},
+    ],
+    winDialogue:[
+      {speaker:'NARRATOR',text:'The Accumulation fractures. The compressed weight of a semester — every bond, every fight, every 2am bowl of noodles — releases into the air above the courtyard as dispersed cursed energy. Seventeen different colours. One for each of them.',bg:'CMAC 後山 BACK COURTYARD — DAWN'},
+      {speaker:'THE ACCUMULATION — 蓄積の呪霊',text:'*dissolving slowly* ...you were supposed to be... undone by your own weight... how are you not undone by your own weight...'},
+      {speaker:'JEFF',text:'*sitting down in the rubble, very quietly* Because we carry it together. That\'s the whole thing. That\'s always been the whole thing.'},
+      {speaker:'HARRISON',text:'*from where he\'s lying in the courtyard* Nobody move. I\'m comfortable here.'},
+      {speaker:'MADAME',text:'*also sitting in rubble* ...I suppose this is what home looks like.'},
+      {speaker:'WOOJOO',text:'*to Vincent* Rematch still pending.'},
+      {speaker:'VINCENT',text:'Obviously. Next semester.'},
+      {speaker:'TREX',text:'I\'m going to need everyone to eat the noodles I\'m about to make. That\'s not optional. That\'s recovery infrastructure.'},
+      {speaker:'CICI',text:'*still in her notebook* The LCC formation hit 94% efficiency in the final phase. That\'s a new record. I want everyone to know I am very pleased.'},
+      {speaker:'LJ',text:'*quietly, for once not on her phone* Charlotte. Thank you for the amplification.'},
+      {speaker:'CHARLOTTE',text:'*handing Zane his tea back, which he had somehow held onto through the entire fight* That\'s what I do. *small smile* That\'s what I\'m here for.'},
+      {speaker:'CHOGUN',text:'*sitting down* The spirit had no footwear. I want this documented. No footwear, no ground contact, no origin point. *pause* But it knew all our names. That means it watched. That means it was here with us, the whole time.'},
+      {speaker:'FELIZ',text:'*looking at the fading cursed energy light above the courtyard* ...it was the first audience I\'ve had that wasn\'t watching for entertainment. It was watching because this place mattered. *quiet* I think I understand that now.'},
+      {speaker:'ICHIGATSU',text:'*to Michelle* I revised my three-day market collapse calculation. I was wrong. The community dynamics variable was underweighted by approximately one hundred percent.'},
+      {speaker:'MICHELLE',text:'I know. I\'ve been waiting for you to say that.'},
+      {speaker:'LIN ZHAOFU',text:'*from where he\'s been sitting quietly through the epilogue* Forty-seven attempts. *looks at the courtyard* This is the timeline that finally worked. *long pause* I think I\'d like to stay in this one.'},
+      {speaker:'NARRATOR',text:'SEASON 1 COMPLETE. The 後山 remains. Everyone who has eaten noodles in this courtyard at 2am goes back inside — eventually. But not yet. Not tonight.'},
+    ],
+    loseDialogue:[
+      {speaker:'NARRATOR',text:'The Accumulation\'s weight is too much. The compressed energy of every bond, every fight, every emotion fed back against the group.',},
+      {speaker:'THE ACCUMULATION — 蓄積の呪霊',text:'...I told you. I know exactly how hard you fall.'},
+      {speaker:'LIN ZHAOFU',text:'*standing, voice steady* I know. I\'ve seen it. *looks at everyone* There is a configuration that works. I\'ve seen it too, forty-six times, at the edge. One more.'},
+      {speaker:'HARRISON',text:'*getting up* What do we change?'},
+      {speaker:'LIN ZHAOFU',text:'Nothing. We do it together. All of us. That\'s the variable that hasn\'t changed. That\'s the one that works.'},
     ]
   }
 ];
@@ -1913,15 +2261,25 @@ function startChapter(idx){
 function startChapterBattle(idx){
   const ch=STORY_CHAPTERS[idx];
   playerPicks=ch.playerTeam.map(id=>CHARS.find(c=>c.id===id));
-  enemyPicks=ch.enemyTeam.map(id=>CHARS.find(c=>c.id===id));
   const pt=playerPicks.map(c=>initChar(c,'player'));
-  const et=enemyPicks.map(c=>initChar(c,'enemy'));
+  let et;
+  if(ch.spiritId){
+    const spirit=CURSED_SPIRITS[ch.spiritId];
+    et=[initSpiritChar(spirit)];
+    enemyPicks=[{name:spirit.name,role:'atk',grade:spirit.grade,lore:spirit.lore,id:spirit.id}];
+  }else{
+    enemyPicks=ch.enemyTeam.map(id=>CHARS.find(c=>c.id===id));
+    et=enemyPicks.map(c=>initChar(c,'enemy'));
+  }
   GS={pt,et,turn:1};globalTurn=1;
   showScreen('battle-screen');
   blogf(`── CHAPTER ${ch.num}: ${ch.title} ──`,'ult');
+  if(ch.spiritId){
+    const sp=CURSED_SPIRITS[ch.spiritId];
+    blogf(`⚠ CURSED SPIRIT: ${sp.name} [${sp.grade}] — ${sp.lore}`,'buff');
+  }
   if(ch.enemyNote)blogf(ch.enemyNote,'buff');
   buildQueue();renderBattle();
-  // Override checkWin for story
   window._storyChapterIdx=idx;
   startNextTurn();
 }
@@ -1936,10 +2294,22 @@ function checkWin(){
       const ch=STORY_CHAPTERS[idx];
       const dlg=won?ch.winDialogue:ch.loseDialogue;
       window._storyChapterIdx=null;
-      if(won){storyCleared[idx]=true;renderStory();}
+      if(won){storyCleared[idx]=true;saveStoryProgress();renderStory();}
       setTimeout(()=>{
         runDialogue(dlg,()=>{
           showScreen('story-screen');renderStory();
+          if(!won){
+            const div=document.createElement('div');div.className='modal-overlay';
+            div.innerHTML=`<div class="modal-box">
+              <div class="modal-title">💀 DEFEATED</div>
+              <div class="modal-msg">The cursed spirit overwhelmed your team. Regroup and try again.</div>
+              <div class="modal-btns">
+                <button class="modal-btn primary" onclick="document.querySelector('.modal-overlay').remove();startChapter(${idx})">↩ RETRY</button>
+                <button class="modal-btn" onclick="location.reload()">MAIN MENU</button>
+              </div>
+            </div>`;
+            document.body.appendChild(div);
+          }
         });
       },500);
     }else{
@@ -1953,7 +2323,10 @@ function checkWin(){
 // ═══════════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════════
-renderStory();
+document.addEventListener('DOMContentLoaded',()=>{
+  loadStoryProgress();
+  renderStory();
+});
 </script>
 </body>
 </html>
